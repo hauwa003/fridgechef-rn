@@ -1,28 +1,67 @@
 export const Colors = {
+  // Primary green
   primary: '#009A1A',
   primaryDark: '#00731A',
-  accent: '#E53845',
-  saffron: '#F5A300',
-  blue: '#3D5CEB',
+  primaryLight: '#F0FAF0',
+  primaryBorder: '#D9F2D1',
+  primaryBg: '#EEFAEE',
+  primaryShadow: 'rgba(0,153,26,0.3)',
+  primaryShadowStrong: 'rgba(0,153,26,0.4)',
 
+  // Accent red
+  accent: '#E63946',
+  accentLight: '#FCF5F2',
+
+  // Saffron / amber
+  saffron: '#F5A300',
+  saffronDark: '#C78000',
+  saffronGradientEnd: '#E57300',
+
+  // Blue
+  blue: '#3D5CEB',
+  blueBg: '#F2F7FF',
+  blueBorder: '#DBE3FF',
+  blueText: '#1F3B8A',
+  blueLabel: '#1E3A8A',
+
+  // Surfaces
   background: '#FAFAF7',
   surface: '#FFFFFF',
+  surfacePressed: '#F5F5F0',
+  surfaceMuted: '#F2F2ED',
   border: '#EAEAE8',
+  borderDark: '#EBEBE5',
+  progressInactive: '#E8E8E3',
 
+  // Text
   textPrimary: '#1A1A1A',
-  textSecondary: '#666666',
+  textSecondary: '#5A5A5A',
   textTertiary: '#9A9A9A',
+  textMuted: '#808080',
+  textDark: '#4D4D4D',
+  textLink: '#009A1A',
 
+  // Splash
   splashGradientStart: '#FFFCF0',
   splashGradientEnd: '#FFF2D1',
 
+  // Onboarding illustration
+  illustrationGradientStart: '#FFFCEB',
+  illustrationGradientEnd: '#FFEDC7',
+
+  // Promo card gradient
+  promoGradientStart: '#F0FCEB',
+  promoGradientEnd: '#D1F5C7',
+  promoText: '#4D8033',
+
+  // Utility
   white: '#FFFFFF',
   black: '#000000',
   transparent: 'transparent',
 
   // Semantic
   success: '#009A1A',
-  error: '#E53845',
+  error: '#E63946',
   warning: '#F5A300',
   info: '#3D5CEB',
 } as const;

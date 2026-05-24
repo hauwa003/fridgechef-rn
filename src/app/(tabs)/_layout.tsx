@@ -1,7 +1,7 @@
 import { Tabs } from 'expo-router';
 import { Text, StyleSheet } from 'react-native';
 import { Colors } from '../../constants/Colors';
-import { Typography } from '../../constants/Typography';
+import { FontFamily } from '../../constants/Typography';
 
 export default function TabLayout() {
   return (
@@ -9,7 +9,7 @@ export default function TabLayout() {
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: Colors.primary,
-        tabBarInactiveTintColor: Colors.textTertiary,
+        tabBarInactiveTintColor: Colors.textMuted,
         tabBarStyle: styles.tabBar,
         tabBarLabelStyle: styles.tabLabel,
       }}
@@ -17,22 +17,28 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <Text style={[styles.icon, { color }]}>🏠</Text>,
+          title: 'HOME',
+          tabBarIcon: ({ focused }) => (
+            <Text style={[styles.icon, !focused && styles.iconInactive]}>🏠</Text>
+          ),
         }}
       />
       <Tabs.Screen
         name="recipes"
         options={{
-          title: 'Recipes',
-          tabBarIcon: ({ color }) => <Text style={[styles.icon, { color }]}>📖</Text>,
+          title: 'RECIPES',
+          tabBarIcon: ({ focused }) => (
+            <Text style={[styles.icon, !focused && styles.iconInactive]}>📖</Text>
+          ),
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
-          title: 'Settings',
-          tabBarIcon: ({ color }) => <Text style={[styles.icon, { color }]}>⚙️</Text>,
+          title: 'SETTINGS',
+          tabBarIcon: ({ focused }) => (
+            <Text style={[styles.icon, !focused && styles.iconInactive]}>⚙️</Text>
+          ),
         }}
       />
     </Tabs>
@@ -41,15 +47,21 @@ export default function TabLayout() {
 
 const styles = StyleSheet.create({
   tabBar: {
-    backgroundColor: Colors.surface,
-    borderTopColor: Colors.border,
+    backgroundColor: Colors.white,
+    borderTopColor: Colors.borderDark,
     height: 88,
-    paddingTop: 8,
+    paddingTop: 12,
+    paddingHorizontal: 16,
   },
   tabLabel: {
-    ...Typography.tabLabel,
+    fontFamily: FontFamily.bold,
+    fontSize: 10,
+    letterSpacing: 0.2,
   },
   icon: {
     fontSize: 22,
+  },
+  iconInactive: {
+    opacity: 0.5,
   },
 });

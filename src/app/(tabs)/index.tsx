@@ -1,10 +1,9 @@
 import { View, Text, ScrollView, Pressable, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { LinearGradient } from 'expo-linear-gradient';
 import { Colors } from '../../constants/Colors';
-import { Typography } from '../../constants/Typography';
-import { Spacing, Radii } from '../../constants/Spacing';
-import { Card } from '../../components/ui/Card';
+import { FontFamily } from '../../constants/Typography';
 import { mockRecipes } from '../../data/mock';
 
 export default function HomeScreen() {
@@ -15,38 +14,75 @@ export default function HomeScreen() {
       <ScrollView contentContainerStyle={styles.scroll}>
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.greeting}>Good evening 👋</Text>
-          <Text style={styles.title}>My Cookbook</Text>
+          <View style={styles.headerLeft}>
+            <Text style={styles.dateText}>Tuesday · 7:14 PM</Text>
+            <Text style={styles.greeting}>Hey Maya 👋</Text>
+          </View>
+          <LinearGradient
+            colors={[Colors.saffron, Colors.saffronGradientEnd]}
+            style={styles.avatar}
+          >
+            <Text style={styles.avatarText}>M</Text>
+          </LinearGradient>
         </View>
 
         {/* Scan CTA */}
-        <Pressable
-          style={styles.scanCard}
-          onPress={() => router.push('/camera')}
+        <LinearGradient
+          colors={[Colors.promoGradientStart, Colors.promoGradientEnd]}
+          start={{ x: 0, y: 0.5 }}
+          end={{ x: 1, y: 0.5 }}
+          style={styles.promoBg}
         >
-          <Text style={styles.scanEmoji}>📸</Text>
-          <View style={styles.scanText}>
-            <Text style={styles.scanTitle}>Scan your fridge</Text>
-            <Text style={styles.scanDescription}>Find recipes with what you have</Text>
-          </View>
-        </Pressable>
+          <Pressable style={styles.promoCard} onPress={() => router.push('/camera')}>
+            <View style={styles.promoIcon}>
+              <Text style={styles.promoEmoji}>📸</Text>
+            </View>
+            <View style={styles.promoText}>
+              <Text style={styles.promoTitle}>What's for dinner tonight?</Text>
+              <Text style={styles.promoSub}>Scan your fridge in 2 seconds</Text>
+            </View>
+            <Text style={styles.promoArrow}>→</Text>
+          </Pressable>
+        </LinearGradient>
 
-        {/* Recent Recipes */}
-        <Text style={styles.sectionTitle}>Recent Recipes</Text>
-        <View style={styles.cards}>
-          {mockRecipes.map((recipe) => (
-            <Card
-              key={recipe.id}
-              title={recipe.title}
-              cuisine={recipe.cuisine}
-              cuisineEmoji={recipe.cuisineEmoji}
-              matchPercent={recipe.matchPercent}
-              cookTime={recipe.cookTime}
-              onPress={() => router.push(`/recipes/${recipe.id}`)}
-            />
-          ))}
+        {/* Recently cooked */}
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>Recently cooked</Text>
+          <Text style={styles.seeAll}>See all</Text>
         </View>
+
+        {mockRecipes.slice(0, 2).map((recipe) => (
+          <Pressable
+            key={recipe.id}
+            style={styles.recipeRow}
+            onPress={() => router.push(`/recipes/${recipe.id}`)}
+          >
+            <View style={styles.recipeThumbnail}>
+              <Text style={styles.thumbEmoji}>🍽️</Text>
+            </View>
+            <View style={styles.recipeInfo}>
+              <Text style={styles.recipeName}>{recipe.title}</Text>
+              <View style={styles.recipeMeta}>
+                <Text style={styles.recipeTime}>2 days ago</Text>
+                <Text style={styles.recipeDot}>·</Text>
+                <Text style={styles.recipeStars}>★★★★★</Text>
+              </View>
+            </View>
+            <View style={styles.cookAgainBadge}>
+              <Text style={styles.cookAgainText}>Cook again</Text>
+            </View>
+          </Pressable>
+        ))}
       </ScrollView>
+
+      {/* Floating scan button */}
+      <Pressable
+        style={styles.fab}
+        onPress={() => router.push('/camera')}
+      >
+        <Text style={styles.fabEmoji}>📸</Text>
+        <Text style={styles.fabText}>Scan again</Text>
+      </Pressable>
     </SafeAreaView>
   );
 }
@@ -57,50 +93,195 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
   },
   scroll: {
-    padding: Spacing.xl,
-    gap: Spacing.xl,
+    paddingHorizontal: 20,
+    paddingBottom: 100,
   },
   header: {
-    gap: Spacing.xs,
-  },
-  greeting: {
-    ...Typography.body,
-    color: Colors.textSecondary,
-  },
-  title: {
-    ...Typography.h1,
-    color: Colors.textPrimary,
-  },
-  scanCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.surface,
-    borderRadius: Radii.lg,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    padding: Spacing.lg,
-    gap: Spacing.lg,
+    justifyContent: 'space-between',
+    paddingTop: 8,
+    paddingBottom: 16,
   },
-  scanEmoji: {
-    fontSize: 40,
+  headerLeft: {
+    gap: 1,
   },
-  scanText: {
-    flex: 1,
-    gap: Spacing.xs,
+  dateText: {
+    fontFamily: FontFamily.medium,
+    fontSize: 12,
+    color: Colors.textMuted,
   },
-  scanTitle: {
-    ...Typography.subtitle,
+  greeting: {
+    fontFamily: FontFamily.bold,
+    fontSize: 22,
     color: Colors.textPrimary,
+    letterSpacing: -0.66,
   },
-  scanDescription: {
-    ...Typography.bodySmall,
-    color: Colors.textSecondary,
+  avatar: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  avatarText: {
+    fontFamily: FontFamily.bold,
+    fontSize: 16,
+    color: Colors.white,
+  },
+  promoBg: {
+    borderRadius: 16,
+    marginBottom: 16,
+  },
+  promoCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 18,
+    gap: 16,
+  },
+  promoIcon: {
+    width: 52,
+    height: 52,
+    borderRadius: 26,
+    backgroundColor: Colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  promoEmoji: {
+    fontSize: 22,
+  },
+  promoText: {
+    flex: 1,
+    gap: 2,
+  },
+  promoTitle: {
+    fontFamily: FontFamily.bold,
+    fontSize: 15,
+    color: Colors.textPrimary,
+    letterSpacing: -0.3,
+  },
+  promoSub: {
+    fontFamily: FontFamily.medium,
+    fontSize: 12,
+    color: Colors.promoText,
+  },
+  promoArrow: {
+    fontFamily: FontFamily.bold,
+    fontSize: 22,
+    color: Colors.primary,
+  },
+  sectionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingTop: 12,
+    paddingBottom: 12,
   },
   sectionTitle: {
-    ...Typography.h3,
+    fontFamily: FontFamily.bold,
+    fontSize: 18,
     color: Colors.textPrimary,
+    letterSpacing: -0.54,
   },
-  cards: {
-    gap: Spacing.lg,
+  seeAll: {
+    fontFamily: FontFamily.bold,
+    fontSize: 13,
+    color: Colors.primary,
+  },
+  recipeRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: Colors.white,
+    borderRadius: 14,
+    paddingLeft: 10,
+    paddingRight: 14,
+    paddingVertical: 10,
+    gap: 12,
+    marginBottom: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 8,
+    elevation: 2,
+  },
+  recipeThumbnail: {
+    width: 72,
+    height: 72,
+    borderRadius: 10,
+    backgroundColor: Colors.background,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  thumbEmoji: {
+    fontSize: 32,
+  },
+  recipeInfo: {
+    flex: 1,
+    gap: 4,
+  },
+  recipeName: {
+    fontFamily: FontFamily.bold,
+    fontSize: 15,
+    color: Colors.textPrimary,
+    letterSpacing: -0.3,
+  },
+  recipeMeta: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  recipeTime: {
+    fontFamily: FontFamily.medium,
+    fontSize: 11,
+    color: Colors.textMuted,
+  },
+  recipeDot: {
+    fontFamily: FontFamily.bold,
+    fontSize: 10,
+    color: '#999',
+  },
+  recipeStars: {
+    fontFamily: FontFamily.semiBold,
+    fontSize: 11,
+    color: Colors.saffron,
+  },
+  cookAgainBadge: {
+    backgroundColor: '#F5FCF0',
+    borderWidth: 1,
+    borderColor: '#D9F2D1',
+    borderRadius: 14,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+  },
+  cookAgainText: {
+    fontFamily: FontFamily.bold,
+    fontSize: 11,
+    color: Colors.primary,
+  },
+  fab: {
+    position: 'absolute',
+    bottom: 100,
+    alignSelf: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    backgroundColor: Colors.primary,
+    borderRadius: 32,
+    paddingLeft: 18,
+    paddingRight: 20,
+    paddingVertical: 14,
+    shadowColor: Colors.primary,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.4,
+    shadowRadius: 20,
+    elevation: 10,
+  },
+  fabEmoji: {
+    fontSize: 16,
+  },
+  fabText: {
+    fontFamily: FontFamily.bold,
+    fontSize: 14,
+    color: Colors.white,
   },
 });
