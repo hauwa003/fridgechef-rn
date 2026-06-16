@@ -1,26 +1,46 @@
-import { View, Text, StyleSheet, Linking } from 'react-native';
+import { View, Text, Pressable, Linking, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from '../../constants/Colors';
-import { Typography } from '../../constants/Typography';
-import { Spacing } from '../../constants/Spacing';
-import { Button } from '../../components/ui/Button';
+import { FontFamily } from '../../constants/Typography';
 
 export default function PermissionDeniedScreen() {
   const router = useRouter();
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        <Text style={styles.emoji}>🔒</Text>
-        <Text style={styles.title}>Camera Access Needed</Text>
-        <Text style={styles.description}>
-          FridgeChef needs camera access to scan your ingredients. Please enable it in Settings.
-        </Text>
+      {/* Close button */}
+      <View style={styles.topRight}>
+        <Pressable style={styles.closeButton} onPress={() => router.back()}>
+          <Text style={styles.closeText}>✕</Text>
+        </Pressable>
       </View>
-      <View style={styles.footer}>
-        <Button title="Open Settings" onPress={() => Linking.openSettings()} />
-        <Button title="Go Back" variant="secondary" onPress={() => router.back()} />
+
+      {/* Content */}
+      <View style={styles.content}>
+        {/* Camera icon */}
+        <View style={styles.iconCircle}>
+          <Text style={styles.iconEmoji}>📷</Text>
+        </View>
+
+        <Text style={styles.title}>Camera access needed</Text>
+        <Text style={styles.description}>
+          FridgeChef needs camera access to scan your fridge. You can enable it in Settings.
+        </Text>
+
+        {/* Buttons */}
+        <View style={styles.buttons}>
+          <Pressable
+            style={styles.primaryButton}
+            onPress={() => Linking.openSettings()}
+          >
+            <Text style={styles.primaryButtonText}>Open Settings</Text>
+          </Pressable>
+          <Pressable style={styles.secondaryButton}>
+            <Text style={styles.secondaryEmoji}>🖼</Text>
+            <Text style={styles.secondaryText}>Upload from gallery</Text>
+          </Pressable>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -31,31 +51,98 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.background,
   },
+  topRight: {
+    alignItems: 'flex-end',
+    paddingHorizontal: 16,
+    paddingVertical: 4,
+  },
+  closeButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: Colors.surfaceMuted,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  closeText: {
+    fontSize: 16,
+    color: Colors.textDark,
+    fontWeight: '700',
+  },
   content: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: Spacing.xxl,
-    gap: Spacing.lg,
+    paddingHorizontal: 32,
+    paddingBottom: 40,
+    paddingTop: 60,
+    gap: 20,
   },
-  emoji: {
-    fontSize: 64,
-    marginBottom: Spacing.lg,
+  iconCircle: {
+    width: 96,
+    height: 96,
+    borderRadius: 48,
+    backgroundColor: '#F2F0EB',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  iconEmoji: {
+    fontSize: 44,
   },
   title: {
-    ...Typography.h2,
+    fontFamily: FontFamily.bold,
+    fontSize: 24,
     color: Colors.textPrimary,
     textAlign: 'center',
+    letterSpacing: -0.96,
   },
   description: {
-    ...Typography.body,
-    color: Colors.textSecondary,
+    fontFamily: FontFamily.medium,
+    fontSize: 15,
+    color: '#666666',
     textAlign: 'center',
-    lineHeight: 24,
+    lineHeight: 22,
   },
-  footer: {
-    paddingHorizontal: Spacing.xxl,
-    paddingBottom: Spacing.xxxl,
-    gap: Spacing.md,
+  buttons: {
+    width: '100%',
+    paddingTop: 16,
+    gap: 10,
+  },
+  primaryButton: {
+    width: '100%',
+    backgroundColor: Colors.primary,
+    borderRadius: 28,
+    paddingVertical: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: Colors.primary,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.3,
+    shadowRadius: 16,
+    elevation: 8,
+  },
+  primaryButtonText: {
+    fontFamily: FontFamily.bold,
+    fontSize: 17,
+    color: Colors.white,
+  },
+  secondaryButton: {
+    width: '100%',
+    borderWidth: 1.5,
+    borderColor: '#C7C7C7',
+    borderRadius: 24,
+    paddingVertical: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+  },
+  secondaryEmoji: {
+    fontSize: 14,
+  },
+  secondaryText: {
+    fontFamily: FontFamily.semiBold,
+    fontSize: 15,
+    color: '#333333',
   },
 });

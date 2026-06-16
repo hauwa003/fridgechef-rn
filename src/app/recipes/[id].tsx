@@ -215,7 +215,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   heroButtonText: {
-    fontFamily: FontFamily.bold,
     fontSize: 20,
     color: Colors.textPrimary,
   },
@@ -497,7 +496,6 @@ const styles = StyleSheet.create({
     borderColor: Colors.textTertiary,
   },
   checkMark: {
-    fontFamily: FontFamily.bold,
     fontSize: 12,
     color: Colors.white,
   },

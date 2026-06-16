@@ -195,7 +195,6 @@ const styles = StyleSheet.create({
     color: Colors.white,
   },
   nextButtonArrow: {
-    fontFamily: FontFamily.bold,
     fontSize: 18,
     color: Colors.white,
   },

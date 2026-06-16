@@ -138,7 +138,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   navButtonText: {
-    fontFamily: FontFamily.bold,
     fontSize: 16,
     color: Colors.textDark,
   },
@@ -289,7 +288,6 @@ const styles = StyleSheet.create({
     opacity: 0.4,
   },
   prevButtonText: {
-    fontFamily: FontFamily.bold,
     fontSize: 22,
     color: Colors.textMuted,
   },
@@ -315,7 +313,6 @@ const styles = StyleSheet.create({
     letterSpacing: -0.34,
   },
   nextStepArrow: {
-    fontFamily: FontFamily.bold,
     fontSize: 18,
     color: Colors.white,
   },

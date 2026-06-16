@@ -11,11 +11,15 @@ export const Colors = {
   // Accent red
   accent: '#E63946',
   accentLight: '#FCF5F2',
+  accentBadgeShadow: 'rgba(128,26,26,0.3)',
 
   // Saffron / amber
   saffron: '#F5A300',
   saffronDark: '#C78000',
   saffronGradientEnd: '#E57300',
+  saffronLightBg: '#FFF5D9',
+  saffronLightBg2: '#FFF5DB',
+  saffronLightBg3: '#FFFCEB',
 
   // Blue
   blue: '#3D5CEB',
@@ -23,15 +27,28 @@ export const Colors = {
   blueBorder: '#DBE3FF',
   blueText: '#1F3B8A',
   blueLabel: '#1E3A8A',
+  blueLightBg: '#EBF2FF',
 
   // Surfaces
   background: '#FAFAF7',
   surface: '#FFFFFF',
   surfacePressed: '#F5F5F0',
   surfaceMuted: '#F2F2ED',
+  surfaceSubtle: '#F7F7F5',
   border: '#EAEAE8',
   borderDark: '#EBEBE5',
   progressInactive: '#E8E8E3',
+
+  // Camera
+  cameraBg: '#0D0D0D',
+  cameraOverlay: 'rgba(255,255,255,0.15)',
+  cameraHintBg: 'rgba(26,26,26,0.7)',
+  shutterGreenStart: '#33C74D',
+  shutterGreenEnd: '#009A1A',
+
+  // Green light
+  greenLightBg: '#F0FCEB',
+  greenLightBg2: '#F5FCF0',
 
   // Text
   textPrimary: '#1A1A1A',

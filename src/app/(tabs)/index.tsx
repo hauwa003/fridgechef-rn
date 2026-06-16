@@ -166,7 +166,6 @@ const styles = StyleSheet.create({
     color: Colors.promoText,
   },
   promoArrow: {
-    fontFamily: FontFamily.bold,
     fontSize: 22,
     color: Colors.primary,
   },

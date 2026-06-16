@@ -9,47 +9,73 @@ export default function CompletionScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Close button */}
-      <View style={styles.topRight}>
+      {/* Status Bar row */}
+      <View style={styles.topBar}>
+        <View style={{ flex: 1 }} />
         <Pressable style={styles.closeButton} onPress={() => router.replace('/(tabs)')}>
           <Text style={styles.closeText}>✕</Text>
         </Pressable>
       </View>
 
+      {/* Celebration Content */}
       <View style={styles.content}>
-        {/* Celebration */}
-        <Text style={styles.sparkles}>🎉 ✨ 🌟</Text>
-        <Text style={styles.title}>Bon appétit!</Text>
-        <Text style={styles.subtitle}>Tomato Basil Pasta. You made this. Enjoy.</Text>
-
-        {/* Plate illustration */}
-        <View style={styles.plate}>
-          <Text style={styles.plateEmoji}>🍝</Text>
+        {/* Emoji row */}
+        <View style={styles.emojiRow}>
+          <Text style={styles.celebrationEmoji}>🎉</Text>
+          <Text style={styles.celebrationEmoji}>✨</Text>
+          <Text style={styles.celebrationEmoji}>🌿</Text>
         </View>
 
-        {/* Rating */}
-        <Text style={styles.ratingLabel}>How did it turn out?</Text>
-        <View style={styles.stars}>
-          {[1, 2, 3, 4, 5].map((i) => (
-            <Pressable key={i}>
-              <Text style={styles.star}>☆</Text>
-            </Pressable>
-          ))}
+        {/* Title */}
+        <Text style={styles.title}>Bon appétit!</Text>
+
+        {/* Subtitle */}
+        <Text style={styles.subtitle}>
+          Tomato Basil Pasta. You made this. Enjoy.
+        </Text>
+
+        {/* Dish Photo Placeholder */}
+        <View style={styles.dishPhoto}>
+          <Text style={styles.dishEmoji}>🍝</Text>
+        </View>
+
+        {/* Timer Pill */}
+        <View style={styles.timerPill}>
+          <Text style={styles.timerIcon}>⏱</Text>
+          <Text style={styles.timerText}>Finished in 28 min</Text>
         </View>
       </View>
 
+      {/* Footer */}
       <View style={styles.footer}>
-        <Pressable style={styles.saveButton}>
-          <Text style={styles.saveIcon}>❤️</Text>
-          <Text style={styles.saveText}>Save to your recipes</Text>
-        </Pressable>
-        <View style={styles.footerLinks}>
-          <Pressable style={styles.footerLink}>
-            <Text style={styles.footerLinkText}>📤 Share</Text>
+        <Text style={styles.ratingLabel}>How did it turn out?</Text>
+
+        {/* Stars */}
+        <View style={styles.starsRow}>
+          <Pressable><Text style={styles.starFilled}>★</Text></Pressable>
+          <Pressable><Text style={styles.starFilled}>★</Text></Pressable>
+          <Pressable><Text style={styles.starFilled}>★</Text></Pressable>
+          <Pressable><Text style={styles.starEmpty}>☆</Text></Pressable>
+          <Pressable><Text style={styles.starEmpty}>☆</Text></Pressable>
+        </View>
+
+        {/* Buttons */}
+        <View style={styles.buttonsSection}>
+          <Pressable style={styles.saveButton}>
+            <Text style={styles.saveHeart}>♥</Text>
+            <Text style={styles.saveText}>Save to your recipes</Text>
           </Pressable>
-          <Pressable style={styles.footerLink} onPress={() => router.replace('/(tabs)')}>
-            <Text style={styles.footerLinkText}>✓ Done</Text>
-          </Pressable>
+
+          <View style={styles.secondaryRow}>
+            <Pressable style={styles.secondaryButton}>
+              <Text style={styles.secondaryIcon}>↗</Text>
+              <Text style={styles.secondaryLabel}>Share</Text>
+            </Pressable>
+            <Pressable style={styles.secondaryButton} onPress={() => router.replace('/(tabs)')}>
+              <Text style={styles.secondaryIcon}>✓</Text>
+              <Text style={styles.secondaryLabel}>Done</Text>
+            </Pressable>
+          </View>
         </View>
       </View>
     </SafeAreaView>
@@ -59,113 +85,171 @@ export default function CompletionScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
+    backgroundColor: '#FFFFFF',
   },
-  topRight: {
-    alignItems: 'flex-end',
-    paddingRight: 20,
-    paddingTop: 8,
+  topBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 24,
+    paddingVertical: 14,
   },
   closeButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: Colors.surfaceMuted,
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    backgroundColor: '#F2F2ED',
     alignItems: 'center',
     justifyContent: 'center',
   },
   closeText: {
+    fontSize: 14,
     fontFamily: FontFamily.bold,
-    fontSize: 16,
-    color: Colors.textDark,
+    color: '#666666',
   },
   content: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 32,
-    gap: 12,
+    paddingHorizontal: 24,
+    gap: 24,
   },
-  sparkles: {
-    fontSize: 28,
-    marginBottom: 4,
+  emojiRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  celebrationEmoji: {
+    fontSize: 36,
   },
   title: {
     fontFamily: FontFamily.bold,
-    fontSize: 32,
-    color: Colors.textPrimary,
-    letterSpacing: -1.2,
+    fontSize: 48,
+    color: '#1A1A1A',
+    textAlign: 'center',
+    letterSpacing: -2.4,
+    lineHeight: 52,
   },
   subtitle: {
     fontFamily: FontFamily.medium,
-    fontSize: 15,
-    color: Colors.textSecondary,
+    fontSize: 17,
+    color: '#595959',
     textAlign: 'center',
   },
-  plate: {
-    width: 160,
-    height: 160,
-    borderRadius: 80,
+  dishPhoto: {
+    width: 280,
+    height: 280,
+    borderRadius: 140,
     backgroundColor: Colors.splashGradientEnd,
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 20,
-    borderWidth: 4,
+    borderWidth: 8,
     borderColor: Colors.saffron,
   },
-  plateEmoji: {
-    fontSize: 72,
+  dishEmoji: {
+    fontSize: 100,
+  },
+  timerPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    backgroundColor: '#F5FCF0',
+    borderWidth: 1.5,
+    borderColor: '#009A1A',
+    borderRadius: 18,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+  },
+  timerIcon: {
+    fontSize: 13,
+  },
+  timerText: {
+    fontFamily: FontFamily.bold,
+    fontSize: 13,
+    color: '#009A1A',
+    letterSpacing: -0.26,
+  },
+  footer: {
+    borderTopWidth: 1,
+    borderTopColor: '#EBEBE5',
+    paddingHorizontal: 24,
+    paddingTop: 20,
+    paddingBottom: 24,
+    gap: 16,
   },
   ratingLabel: {
     fontFamily: FontFamily.semiBold,
     fontSize: 14,
-    color: Colors.textSecondary,
-    marginTop: 8,
+    color: '#595959',
+    textAlign: 'center',
+    width: '100%',
   },
-  stars: {
+  starsRow: {
     flexDirection: 'row',
-    gap: 8,
-  },
-  star: {
-    fontSize: 32,
-    color: Colors.saffron,
-  },
-  footer: {
-    paddingHorizontal: 24,
-    paddingBottom: 32,
-    gap: 16,
     alignItems: 'center',
+    justifyContent: 'center',
+    gap: 12,
+  },
+  starFilled: {
+    fontSize: 32,
+    color: '#F5A300',
+  },
+  starEmpty: {
+    fontSize: 32,
+    color: '#D9D9D1',
+  },
+  buttonsSection: {
+    gap: 12,
+    paddingTop: 8,
   },
   saveButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-    backgroundColor: Colors.primary,
+    backgroundColor: '#009A1A',
     borderRadius: 28,
     paddingVertical: 16,
-    width: '100%',
-    shadowColor: Colors.primary,
+    paddingHorizontal: 24,
+    shadowColor: 'rgba(0,153,26,1)',
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.25,
     shadowRadius: 16,
+    elevation: 8,
   },
-  saveIcon: { fontSize: 16 },
+  saveHeart: {
+    fontSize: 16,
+    color: '#FFFFFF',
+  },
   saveText: {
     fontFamily: FontFamily.bold,
-    fontSize: 16,
-    color: Colors.white,
+    fontSize: 17,
+    color: '#FFFFFF',
+    letterSpacing: -0.34,
   },
-  footerLinks: {
+  secondaryRow: {
     flexDirection: 'row',
-    gap: 32,
+    gap: 12,
   },
-  footerLink: {
-    padding: 8,
+  secondaryButton: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    backgroundColor: '#F5F5F0',
+    borderRadius: 24,
+    paddingVertical: 14,
+    paddingHorizontal: 16,
   },
-  footerLinkText: {
+  secondaryIcon: {
+    fontFamily: FontFamily.bold,
+    fontSize: 14,
+    color: '#000000',
+  },
+  secondaryLabel: {
     fontFamily: FontFamily.semiBold,
     fontSize: 14,
-    color: Colors.textSecondary,
+    color: '#333333',
   },
 });

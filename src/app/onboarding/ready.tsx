@@ -10,35 +10,65 @@ export default function ReadyScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.skipRow}>
+      {/* Skip button */}
+      <View style={styles.skipContainer}>
         <Pressable onPress={() => router.replace('/(tabs)')}>
           <Text style={styles.skipText}>Skip</Text>
         </Pressable>
       </View>
 
-      {/* Hero Illustration */}
-      <View style={styles.heroWrap}>
+      {/* Hero section */}
+      <View style={styles.heroSection}>
+        {/* Green gradient circle */}
         <LinearGradient
-          colors={[Colors.illustrationGradientStart, Colors.illustrationGradientEnd]}
+          colors={['#009A1A', '#007314']}
           style={styles.heroCircle}
         >
-          <Text style={styles.heroEmoji}>🥗</Text>
-          <View style={styles.checkBadge}>
-            <Text style={styles.checkText}>✓</Text>
-          </View>
+          <Text style={styles.heroEmoji}>📸</Text>
         </LinearGradient>
-      </View>
 
-      {/* Content */}
-      <View style={styles.content}>
-        <View style={styles.labelRow}>
-          <Text style={styles.labelEmoji}>✨</Text>
-          <Text style={styles.labelText}>LET'S GO</Text>
-        </View>
-        <Text style={styles.heading}>Let's see what's{'\n'}in your fridge</Text>
-        <Text style={styles.body}>
-          Take a quick photo and we'll identify your ingredients automatically. Ready when you are!
+        {/* Label */}
+        <Text style={styles.label}>
+          <Text style={styles.labelEmoji}>✨ </Text>
+          <Text style={styles.labelText}>ALMOST READY</Text>
         </Text>
+
+        {/* Heading */}
+        <Text style={styles.heading}>{"Let's see what's\nin your fridge"}</Text>
+
+        {/* Body */}
+        <Text style={styles.body}>
+          We need a couple of permissions to make this work.
+        </Text>
+
+        {/* Permissions card */}
+        <View style={styles.permissionsCard}>
+          {/* Camera row */}
+          <View style={styles.permissionRow}>
+            <View style={styles.permissionIconCircleGreen}>
+              <Text style={styles.permissionEmoji}>📷</Text>
+            </View>
+            <View style={styles.permissionTextColumn}>
+              <Text style={styles.permissionTitle}>Camera</Text>
+              <Text style={styles.permissionDescription}>
+                Take a photo of your fridge contents
+              </Text>
+            </View>
+          </View>
+
+          {/* Notifications row */}
+          <View style={styles.permissionRow}>
+            <View style={styles.permissionIconCircleBlue}>
+              <Text style={styles.permissionEmoji}>🔔</Text>
+            </View>
+            <View style={styles.permissionTextColumn}>
+              <Text style={styles.permissionTitle}>Notifications</Text>
+              <Text style={styles.permissionDescription}>
+                Optional · timer alerts and reminders
+              </Text>
+            </View>
+          </View>
+        </View>
       </View>
 
       {/* Footer */}
@@ -65,7 +95,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.background,
   },
-  skipRow: {
+  skipContainer: {
     alignItems: 'flex-end',
     paddingRight: 24,
     paddingTop: 4,
@@ -75,48 +105,36 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: Colors.textMuted,
   },
-  heroWrap: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 32,
-  },
-  heroCircle: {
-    width: 280,
-    height: 280,
-    borderRadius: 140,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-  },
-  heroEmoji: { fontSize: 80 },
-  checkBadge: {
-    position: 'absolute',
-    right: 50,
-    bottom: 50,
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: Colors.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  checkText: {
-    color: Colors.white,
-    fontSize: 20,
-    fontWeight: '700',
-  },
-  content: {
+  heroSection: {
     alignItems: 'center',
     paddingHorizontal: 32,
-    paddingVertical: 16,
-    gap: 12,
+    paddingTop: 20,
+    paddingBottom: 16,
+    gap: 24,
   },
-  labelRow: {
+  heroCircle: {
+    width: 140,
+    height: 140,
+    borderRadius: 70,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: 'rgba(0,153,26,1)',
+    shadowOffset: { width: 0, height: 16 },
+    shadowOpacity: 0.35,
+    shadowRadius: 30,
+    elevation: 16,
+  },
+  heroEmoji: {
+    fontSize: 64,
+  },
+  label: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
   },
-  labelEmoji: { fontSize: 11 },
+  labelEmoji: {
+    fontSize: 11,
+    color: Colors.textPrimary,
+  },
   labelText: {
     fontFamily: FontFamily.bold,
     fontSize: 11,
@@ -125,18 +143,65 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontFamily: FontFamily.bold,
-    fontSize: 30,
+    fontSize: 28,
     color: Colors.textPrimary,
     textAlign: 'center',
-    letterSpacing: -1.2,
-    lineHeight: 36,
+    letterSpacing: -1.12,
+    lineHeight: 34,
   },
   body: {
     fontFamily: FontFamily.medium,
-    fontSize: 15,
-    color: Colors.textMuted,
+    fontSize: 14,
+    color: '#666666',
     textAlign: 'center',
-    lineHeight: 22,
+    lineHeight: 20,
+  },
+  permissionsCard: {
+    backgroundColor: Colors.surfaceSubtle,
+    borderWidth: 1,
+    borderColor: Colors.borderDark,
+    borderRadius: 12,
+    padding: 16,
+    gap: 12,
+    width: '100%',
+  },
+  permissionRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  permissionIconCircleGreen: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: Colors.greenLightBg,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  permissionIconCircleBlue: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: Colors.blueBg,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  permissionEmoji: {
+    fontSize: 16,
+  },
+  permissionTextColumn: {
+    flex: 1,
+    gap: 2,
+  },
+  permissionTitle: {
+    fontFamily: FontFamily.bold,
+    fontSize: 13,
+    color: Colors.textPrimary,
+  },
+  permissionDescription: {
+    fontFamily: FontFamily.medium,
+    fontSize: 11,
+    color: Colors.textMuted,
   },
   footer: {
     flex: 1,
@@ -144,6 +209,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 24,
     paddingBottom: 32,
+    paddingTop: 16,
     gap: 20,
   },
   dots: {
@@ -181,7 +247,6 @@ const styles = StyleSheet.create({
     color: Colors.white,
   },
   nextButtonArrow: {
-    fontFamily: FontFamily.bold,
     fontSize: 18,
     color: Colors.white,
   },
