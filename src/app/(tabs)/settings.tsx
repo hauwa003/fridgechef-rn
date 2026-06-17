@@ -3,9 +3,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Colors } from '../../constants/Colors';
 import { FontFamily } from '../../constants/Typography';
+import MingCuteIcon from '../../components/MingCuteIcon';
+import { MingCuteIconName } from '../../constants/MingCuteGlyphMap';
 
 type SettingsRowProps = {
-  emoji: string;
+  icon: MingCuteIconName;
+  iconColor: string;
   iconBg: string;
   label: string;
   value?: string;
@@ -13,11 +16,11 @@ type SettingsRowProps = {
   toggle?: boolean;
 };
 
-function SettingsRow({ emoji, iconBg, label, value, showChevron = true, toggle = false }: SettingsRowProps) {
+function SettingsRow({ icon, iconColor, iconBg, label, value, showChevron = true, toggle = false }: SettingsRowProps) {
   return (
     <Pressable style={styles.row}>
       <View style={[styles.iconSquare, { backgroundColor: iconBg }]}>
-        <Text style={styles.iconEmoji}>{emoji}</Text>
+        <MingCuteIcon name={icon} size={16} color={iconColor} />
       </View>
       <Text style={styles.rowLabel}>{label}</Text>
       {toggle ? (
@@ -27,7 +30,7 @@ function SettingsRow({ emoji, iconBg, label, value, showChevron = true, toggle =
       ) : (
         <>
           {value && <Text style={styles.rowValue}>{value}</Text>}
-          {showChevron && <Text style={styles.chevron}>›</Text>}
+          {showChevron && <MingCuteIcon name="right_line" size={14} color="#808080" />}
         </>
       )}
     </Pressable>
@@ -57,7 +60,7 @@ export default function SettingsScreen() {
             <Text style={styles.profileName}>Maya</Text>
             <View style={styles.profileBadgeRow}>
               <View style={styles.plusBadge}>
-                <Text style={styles.plusBadgeSparkle}>✨</Text>
+                <MingCuteIcon name="sparkles_fill" size={9} color={Colors.saffron} />
                 <Text style={styles.plusBadgeText}>PLUS</Text>
               </View>
               <Text style={styles.subscriptionInfo}>Annual · renews Mar 18</Text>
@@ -71,9 +74,9 @@ export default function SettingsScreen() {
           <View style={styles.section}>
             <Text style={styles.sectionLabel}>SUBSCRIPTION</Text>
             <View style={styles.card}>
-              <SettingsRow emoji="👑" iconBg={Colors.saffronLightBg} label="Manage Plus" value="Annual" />
+              <SettingsRow icon="trophy_fill" iconColor={Colors.saffron} iconBg={Colors.saffronLightBg} label="Manage Plus" value="Annual" />
               <View style={styles.separator} />
-              <SettingsRow emoji="💳" iconBg={Colors.blueLightBg} label="Billing" value="Visa •• 4242" />
+              <SettingsRow icon="bank_card_line" iconColor={Colors.blue} iconBg={Colors.blueLightBg} label="Billing" value="Visa •• 4242" />
             </View>
           </View>
 
@@ -81,11 +84,11 @@ export default function SettingsScreen() {
           <View style={styles.section}>
             <Text style={styles.sectionLabel}>PREFERENCES</Text>
             <View style={styles.card}>
-              <SettingsRow emoji="🍽" iconBg={Colors.greenLightBg} label="Dietary preferences" value="Vegetarian" />
+              <SettingsRow icon="fork_knife_line" iconColor={Colors.primary} iconBg={Colors.greenLightBg} label="Dietary preferences" value="Vegetarian" />
               <View style={styles.separator} />
-              <SettingsRow emoji="👥" iconBg={Colors.blueLightBg} label="Default servings" value="2" />
+              <SettingsRow icon="group_line" iconColor={Colors.blue} iconBg={Colors.blueLightBg} label="Default servings" value="2" />
               <View style={styles.separator} />
-              <SettingsRow emoji="🔔" iconBg={Colors.saffronLightBg} label="Notifications" toggle />
+              <SettingsRow icon="notification_line" iconColor={Colors.saffron} iconBg={Colors.saffronLightBg} label="Notifications" toggle />
             </View>
           </View>
 
@@ -93,9 +96,9 @@ export default function SettingsScreen() {
           <View style={styles.section}>
             <Text style={styles.sectionLabel}>PRIVACY</Text>
             <View style={styles.card}>
-              <SettingsRow emoji="📸" iconBg={Colors.saffronLightBg} label="Photo retention" value="Delete after 24h" />
+              <SettingsRow icon="camera_2_line" iconColor={Colors.saffron} iconBg={Colors.saffronLightBg} label="Photo retention" value="Delete after 24h" />
               <View style={styles.separator} />
-              <SettingsRow emoji="🔒" iconBg={Colors.blueLightBg} label="Data & privacy" />
+              <SettingsRow icon="lock_line" iconColor={Colors.blue} iconBg={Colors.blueLightBg} label="Data & privacy" />
             </View>
           </View>
 
@@ -103,9 +106,9 @@ export default function SettingsScreen() {
           <View style={styles.section}>
             <Text style={styles.sectionLabel}>ABOUT</Text>
             <View style={styles.card}>
-              <SettingsRow emoji="❓" iconBg={Colors.blueLightBg} label="Help & support" />
+              <SettingsRow icon="question_line" iconColor={Colors.blue} iconBg={Colors.blueLightBg} label="Help & support" />
               <View style={styles.separator} />
-              <SettingsRow emoji="ℹ" iconBg={Colors.surfaceMuted} label="Version" value="1.0.0" showChevron={false} />
+              <SettingsRow icon="information_line" iconColor={Colors.textMuted} iconBg={Colors.surfaceMuted} label="Version" value="1.0.0" showChevron={false} />
             </View>
           </View>
         </View>
@@ -176,9 +179,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 3,
   },
-  plusBadgeSparkle: {
-    fontSize: 9,
-  },
   plusBadgeText: {
     fontSize: 9,
     fontFamily: FontFamily.bold,
@@ -228,9 +228,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  iconEmoji: {
-    fontSize: 14,
-  },
   rowLabel: {
     flex: 1,
     fontSize: 14,
@@ -240,11 +237,6 @@ const styles = StyleSheet.create({
   rowValue: {
     fontSize: 12,
     fontFamily: FontFamily.medium,
-    color: '#808080',
-  },
-  chevron: {
-    fontSize: 14,
-    fontFamily: FontFamily.bold,
     color: '#808080',
   },
   toggleTrack: {

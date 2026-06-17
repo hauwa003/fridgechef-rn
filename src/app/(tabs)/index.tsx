@@ -5,6 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Colors } from '../../constants/Colors';
 import { FontFamily } from '../../constants/Typography';
 import { mockRecipes } from '../../data/mock';
+import MingCuteIcon from '../../components/MingCuteIcon';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -35,13 +36,13 @@ export default function HomeScreen() {
         >
           <Pressable style={styles.promoCard} onPress={() => router.push('/camera')}>
             <View style={styles.promoIcon}>
-              <Text style={styles.promoEmoji}>📸</Text>
+              <MingCuteIcon name="camera_2_fill" size={24} color={Colors.white} />
             </View>
             <View style={styles.promoText}>
               <Text style={styles.promoTitle}>What's for dinner tonight?</Text>
               <Text style={styles.promoSub}>Scan your fridge in 2 seconds</Text>
             </View>
-            <Text style={styles.promoArrow}>→</Text>
+            <MingCuteIcon name="arrow_right_line" size={22} color={Colors.primary} />
           </Pressable>
         </LinearGradient>
 
@@ -58,14 +59,18 @@ export default function HomeScreen() {
             onPress={() => router.push(`/recipes/${recipe.id}`)}
           >
             <View style={styles.recipeThumbnail}>
-              <Text style={styles.thumbEmoji}>🍽️</Text>
+              <MingCuteIcon name="fork_knife_fill" size={28} color={Colors.textMuted} />
             </View>
             <View style={styles.recipeInfo}>
               <Text style={styles.recipeName}>{recipe.title}</Text>
               <View style={styles.recipeMeta}>
                 <Text style={styles.recipeTime}>2 days ago</Text>
                 <Text style={styles.recipeDot}>·</Text>
-                <Text style={styles.recipeStars}>★★★★★</Text>
+                <View style={styles.starsRow}>
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <MingCuteIcon key={i} name="star_fill" size={11} color={Colors.saffron} />
+                  ))}
+                </View>
               </View>
             </View>
             <View style={styles.cookAgainBadge}>
@@ -80,7 +85,7 @@ export default function HomeScreen() {
         style={styles.fab}
         onPress={() => router.push('/camera')}
       >
-        <Text style={styles.fabEmoji}>📸</Text>
+        <MingCuteIcon name="camera_2_fill" size={18} color={Colors.white} />
         <Text style={styles.fabText}>Scan again</Text>
       </Pressable>
     </SafeAreaView>
@@ -147,9 +152,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  promoEmoji: {
-    fontSize: 22,
-  },
   promoText: {
     flex: 1,
     gap: 2,
@@ -164,10 +166,6 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.medium,
     fontSize: 12,
     color: Colors.promoText,
-  },
-  promoArrow: {
-    fontSize: 22,
-    color: Colors.primary,
   },
   sectionHeader: {
     flexDirection: 'row',
@@ -211,9 +209,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  thumbEmoji: {
-    fontSize: 32,
-  },
   recipeInfo: {
     flex: 1,
     gap: 4,
@@ -239,10 +234,9 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: '#999',
   },
-  recipeStars: {
-    fontFamily: FontFamily.semiBold,
-    fontSize: 11,
-    color: Colors.saffron,
+  starsRow: {
+    flexDirection: 'row',
+    gap: 1,
   },
   cookAgainBadge: {
     backgroundColor: '#F5FCF0',
@@ -274,9 +268,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.4,
     shadowRadius: 20,
     elevation: 10,
-  },
-  fabEmoji: {
-    fontSize: 16,
   },
   fabText: {
     fontFamily: FontFamily.bold,

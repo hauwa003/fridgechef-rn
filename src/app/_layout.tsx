@@ -8,6 +8,9 @@ import {
   NunitoSans_600SemiBold,
   NunitoSans_700Bold,
 } from '@expo-google-fonts/nunito-sans';
+import {
+  BricolageGrotesque_700Bold,
+} from '@expo-google-fonts/bricolage-grotesque';
 import * as SplashScreen from 'expo-splash-screen';
 
 SplashScreen.preventAutoHideAsync();
@@ -18,6 +21,8 @@ export default function RootLayout() {
     NunitoSans_500Medium,
     NunitoSans_600SemiBold,
     NunitoSans_700Bold,
+    BricolageGrotesque_700Bold,
+    MingCute: require('../../assets/MingCute.ttf'),
   });
 
   useEffect(() => {

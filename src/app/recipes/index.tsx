@@ -5,6 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Colors } from '../../constants/Colors';
 import { FontFamily } from '../../constants/Typography';
 import { mockRecipes } from '../../data/mock';
+import MingCuteIcon from '../../components/MingCuteIcon';
 
 // Helper: map cuisine to badge color
 function cuisineBadgeColor(cuisine: string): string {
@@ -82,7 +83,7 @@ export default function RecipeListScreen() {
       {/* ── Top Bar ── */}
       <View style={styles.topBar}>
         <Pressable style={styles.iconBtn} onPress={() => router.back()}>
-          <Text style={styles.iconBtnText}>{'←'}</Text>
+          <MingCuteIcon name="arrow_left_line" size={18} color={Colors.textDark} />
         </Pressable>
 
         <View style={styles.titleColumn}>
@@ -93,7 +94,7 @@ export default function RecipeListScreen() {
         </View>
 
         <Pressable style={styles.iconBtn}>
-          <Text style={styles.menuBtnText}>{'≡'}</Text>
+          <MingCuteIcon name="menu_line" size={18} color={Colors.textDark} />
         </Pressable>
       </View>
 
@@ -109,7 +110,7 @@ export default function RecipeListScreen() {
           end={{ x: 1, y: 0.5 }}
           style={styles.banner}
         >
-          <Text style={styles.bannerLabel}>{'✨'}</Text>
+          <MingCuteIcon name="sparkles_fill" size={12} color={Colors.primary} />
           <Text style={styles.bannerTitle}>What can I cook?</Text>
           <Text style={styles.bannerSubtitle}>
             Best match: Tomato Basil Pasta · 30 min
@@ -120,17 +121,17 @@ export default function RecipeListScreen() {
         <View style={styles.chipRow}>
           <View style={styles.chipLeft}>
             <View style={styles.chip}>
-              <Text style={styles.chipEmoji}>{'⚡'}</Text>
+              <MingCuteIcon name="flash_line" size={12} color={Colors.textDark} style={{ marginRight: 4 }} />
               <Text style={styles.chipLabel}>Quick</Text>
             </View>
             <View style={styles.chip}>
-              <Text style={styles.chipEmoji}>{'🌿'}</Text>
+              <MingCuteIcon name="leaf_line" size={12} color={Colors.textDark} style={{ marginRight: 4 }} />
               <Text style={styles.chipLabel}>Veggie</Text>
             </View>
           </View>
 
           <View style={styles.chip}>
-            <Text style={styles.chipEmoji}>{'↕'}</Text>
+            <MingCuteIcon name="sort_descending_line" size={12} color={Colors.textDark} style={{ marginRight: 4 }} />
             <Text style={styles.chipLabel}>Best match</Text>
           </View>
         </View>
@@ -162,7 +163,7 @@ export default function RecipeListScreen() {
                   { backgroundColor: matchBadgeBg(featured.matchPercent) },
                 ]}
               >
-                <Text style={styles.overlayBadgeEmoji}>{'⭐'}</Text>
+                <MingCuteIcon name="star_fill" size={11} color={Colors.white} style={{ marginRight: 4 }} />
                 <Text style={styles.overlayBadgeText}>
                   {featured.matchPercent}%
                 </Text>
@@ -175,19 +176,19 @@ export default function RecipeListScreen() {
 
               <View style={styles.metaRow}>
                 <View style={styles.metaItem}>
-                  <Text style={styles.metaEmoji}>{'⏱'}</Text>
+                  <MingCuteIcon name="time_line" size={13} color={Colors.saffronDark} style={{ marginRight: 3 }} />
                   <Text style={[styles.metaText, { color: Colors.saffronDark }]}>
                     {featured.cookTime}
                   </Text>
                 </View>
                 <View style={styles.metaItem}>
-                  <Text style={styles.metaEmoji}>{'👥'}</Text>
+                  <MingCuteIcon name="group_line" size={13} color={Colors.textDark} style={{ marginRight: 3 }} />
                   <Text style={[styles.metaText, { color: Colors.textDark }]}>
                     {featured.servings} servings
                   </Text>
                 </View>
                 <View style={styles.metaItem}>
-                  <Text style={styles.metaEmoji}>{'⚡'}</Text>
+                  <MingCuteIcon name="flash_line" size={13} color={difficultyColor(featured.difficulty)} style={{ marginRight: 3 }} />
                   <Text
                     style={[
                       styles.metaText,
@@ -265,18 +266,18 @@ export default function RecipeListScreen() {
 
                   {/* Meta line */}
                   <View style={styles.compactMetaRow}>
+                    <MingCuteIcon name="time_line" size={11} color={Colors.saffronDark} />
                     <Text style={styles.compactMetaTime}>
-                      {'⏱ '}
                       {recipe.cookTime}
                     </Text>
                     <Text style={styles.compactMetaDot}>{'·'}</Text>
+                    <MingCuteIcon name="flash_line" size={11} color={difficultyColor(recipe.difficulty)} />
                     <Text
                       style={[
                         styles.compactMetaDifficulty,
                         { color: difficultyColor(recipe.difficulty) },
                       ]}
                     >
-                      {'⚡ '}
                       {recipe.difficulty}
                     </Text>
                   </View>

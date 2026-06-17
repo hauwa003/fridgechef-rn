@@ -26,14 +26,16 @@ export default function OnboardingScreen() {
         nativeControls={false}
       />
       <LinearGradient
-        colors={['transparent', 'rgba(0,0,0,0.75)']}
-        style={styles.gradient}
+        colors={['rgba(0,0,0,0.1)', 'rgba(0,0,0,0.3)', 'rgba(0,0,0,0.7)', 'rgba(0,0,0,0.95)']}
+        locations={[0, 0.4, 0.7, 1]}
+        style={StyleSheet.absoluteFill}
       />
-      <View style={[styles.content, { paddingBottom: insets.bottom + 48 }]}>
+      <View style={[styles.content, { paddingBottom: insets.bottom + 4 }]}>
         <Text style={styles.heading}>Stop wondering{'\n'}what to cook</Text>
         <Text style={styles.subtitle}>
-          Snap your fridge, we'll find recipes that work.{'\n'}Fresh, quick, doable.
+          Snap your fridge, we'll find recipes that work. Fresh, quick, doable.
         </Text>
+        <View style={{ height: 12 }} />
         <Pressable
           onPress={() => router.replace('/(tabs)')}
           style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
@@ -50,29 +52,24 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.black,
   },
-  gradient: {
-    ...StyleSheet.absoluteFill,
-    top: '50%',
-  },
   content: {
     position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
     paddingHorizontal: 24,
-    paddingTop: 24,
-    gap: 14,
+    gap: 8,
   },
   heading: {
-    fontFamily: FontFamily.bold,
+    fontFamily: 'BricolageGrotesque_700Bold',
     fontSize: 34,
     color: Colors.white,
     letterSpacing: -0.68,
-    lineHeight: 40,
+    lineHeight: 36,
   },
   subtitle: {
     fontFamily: FontFamily.medium,
-    fontSize: 14,
+    fontSize: 16,
     color: '#E6E6E6',
     lineHeight: 24,
     maxWidth: 327,

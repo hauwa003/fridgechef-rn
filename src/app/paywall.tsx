@@ -4,34 +4,49 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Colors } from '../constants/Colors';
 import { FontFamily } from '../constants/Typography';
+import MingCuteIcon from '../components/MingCuteIcon';
+import { MingCuteIconName } from '../constants/MingCuteGlyphMap';
 
-const FEATURES = [
+type Feature = {
+  icon: MingCuteIconName;
+  iconColor: string;
+  iconBg: string;
+  title: string;
+  description: string;
+};
+
+const FEATURES: Feature[] = [
   {
-    icon: '∞',
+    icon: 'camera_2_fill',
+    iconColor: Colors.primary,
     iconBg: Colors.greenLightBg,
     title: 'Unlimited scans',
     description: 'Scan your fridge as often as you want — no daily caps',
   },
   {
-    icon: '💾',
+    icon: 'save_fill',
+    iconColor: Colors.blue,
     iconBg: Colors.blueLightBg,
     title: 'Save everything',
     description: 'Keep unlimited recipes in your cookbook forever',
   },
   {
-    icon: '▶',
+    icon: 'play_fill',
+    iconColor: Colors.saffron,
     iconBg: Colors.saffronLightBg,
     title: 'Video guides',
     description: 'Watch step-by-step videos for tricky techniques',
   },
   {
-    icon: '🛒',
+    icon: 'shopping_cart_1_line',
+    iconColor: Colors.accent,
     iconBg: '#FFF0ED',
     title: 'Smart shopping lists',
     description: "Auto-generate lists for ingredients you don't have",
   },
   {
-    icon: '📅',
+    icon: 'calendar_line',
+    iconColor: Colors.primary,
     iconBg: Colors.greenLightBg,
     title: 'Meal planning',
     description: "Plan a full week of meals based on what's in your fridge",
@@ -51,7 +66,7 @@ export default function PaywallScreen() {
         {/* Top Bar */}
         <View style={styles.topBar}>
           <Pressable style={styles.closeButton} onPress={() => router.back()}>
-            <Text style={styles.closeButtonText}>✕</Text>
+            <MingCuteIcon name="close_line" size={18} color={Colors.textDark} />
           </Pressable>
         </View>
 
@@ -65,15 +80,13 @@ export default function PaywallScreen() {
             colors={['#FCD94D', '#F5A300']}
             style={styles.crownCircle}
           >
-            <Text style={styles.crownEmoji}>👑</Text>
+            <MingCuteIcon name="trophy_fill" size={44} color={Colors.white} />
           </LinearGradient>
 
           {/* PLUS Badge */}
           <View style={styles.plusBadge}>
-            <Text style={styles.plusBadgeText}>
-              <Text style={styles.plusBadgeSparkle}>✨ </Text>
-              FRIDGECHEF PLUS
-            </Text>
+            <MingCuteIcon name="sparkles_fill" size={11} color={Colors.saffron} />
+            <Text style={styles.plusBadgeText}> FRIDGECHEF PLUS</Text>
           </View>
 
           {/* Hero Title */}
@@ -96,7 +109,7 @@ export default function PaywallScreen() {
               <View
                 style={[styles.featureIconCircle, { backgroundColor: feature.iconBg }]}
               >
-                <Text style={styles.featureIcon}>{feature.icon}</Text>
+                <MingCuteIcon name={feature.icon} size={20} color={feature.iconColor} />
               </View>
               <View style={styles.featureTextColumn}>
                 <Text style={styles.featureTitle}>{feature.title}</Text>
@@ -148,23 +161,23 @@ export default function PaywallScreen() {
           {/* CTA Button */}
           <Pressable style={styles.ctaButton} onPress={() => router.back()}>
             <Text style={styles.ctaButtonText}>Start 7-day free trial</Text>
-            <Text style={styles.ctaArrow}>→</Text>
+            <MingCuteIcon name="arrow_right_line" size={18} color={Colors.white} />
           </Pressable>
 
           {/* Trust Badges */}
           <View style={styles.trustBadgesRow}>
-            <Text style={styles.trustBadgeText}>
-              <Text style={styles.trustBadgeIcon}>✓ </Text>
-              Cancel anytime
-            </Text>
-            <Text style={styles.trustBadgeText}>
-              <Text style={styles.trustBadgeIcon}>🔒 </Text>
-              Secure
-            </Text>
-            <Text style={styles.trustBadgeText}>
-              <Text style={styles.trustBadgeIcon}>✓ </Text>
-              No hidden fees
-            </Text>
+            <View style={styles.trustBadge}>
+              <MingCuteIcon name="check_line" size={10} color={Colors.textMuted} />
+              <Text style={styles.trustBadgeText}>Cancel anytime</Text>
+            </View>
+            <View style={styles.trustBadge}>
+              <MingCuteIcon name="lock_line" size={10} color={Colors.textMuted} />
+              <Text style={styles.trustBadgeText}>Secure</Text>
+            </View>
+            <View style={styles.trustBadge}>
+              <MingCuteIcon name="check_line" size={10} color={Colors.textMuted} />
+              <Text style={styles.trustBadgeText}>No hidden fees</Text>
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -199,11 +212,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  closeButtonText: {
-    fontSize: 16,
-    fontFamily: FontFamily.bold,
-    color: Colors.textDark,
-  },
 
   // Hero Section
   heroSection: {
@@ -225,9 +233,6 @@ const styles = StyleSheet.create({
     shadowRadius: 20,
     elevation: 12,
   },
-  crownEmoji: {
-    fontSize: 44,
-  },
   plusBadge: {
     backgroundColor: Colors.textPrimary,
     borderRadius: 16,
@@ -236,9 +241,6 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  plusBadgeSparkle: {
-    fontSize: 11,
   },
   plusBadgeText: {
     fontSize: 11,
@@ -291,9 +293,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  featureIcon: {
-    fontSize: 18,
   },
   featureTextColumn: {
     flex: 1,
@@ -406,11 +405,6 @@ const styles = StyleSheet.create({
     color: Colors.white,
     letterSpacing: -0.34,
   },
-  ctaArrow: {
-    fontSize: 18,
-    color: Colors.white,
-    fontFamily: FontFamily.bold,
-  },
 
   // Trust Badges
   trustBadgesRow: {
@@ -419,10 +413,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 16,
   },
-  trustBadgeIcon: {
-    fontSize: 10,
-    fontFamily: FontFamily.bold,
-    color: Colors.textMuted,
+  trustBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
   },
   trustBadgeText: {
     fontSize: 11,

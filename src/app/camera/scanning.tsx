@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Colors } from '../../constants/Colors';
 import { FontFamily } from '../../constants/Typography';
+import MingCuteIcon from '../../components/MingCuteIcon';
 
 export default function ScanningScreen() {
   const router = useRouter();
@@ -38,12 +39,12 @@ export default function ScanningScreen() {
           colors={[Colors.greenLightBg, Colors.primary]}
           style={styles.aiCircle}
         >
-          <Text style={styles.aiEmoji}>✨</Text>
+          <MingCuteIcon name="sparkles_fill" size={64} color={Colors.white} />
         </LinearGradient>
 
         {/* Label */}
         <View style={styles.labelRow}>
-          <Text style={styles.labelEmoji}>✨</Text>
+          <MingCuteIcon name="sparkles_fill" size={11} color={Colors.primary} />
           <Text style={styles.labelText}> AI WORKING</Text>
         </View>
 
@@ -61,15 +62,15 @@ export default function ScanningScreen() {
         {/* Progress card */}
         <View style={styles.progressCard}>
           <View style={styles.progressRow}>
-            <Text style={styles.progressEmoji}>⏳</Text>
+            <MingCuteIcon name="time_line" size={14} color={Colors.blueText} />
             <Text style={styles.progressText}>Processing photo...</Text>
           </View>
           <View style={styles.progressRow}>
-            <Text style={styles.progressCircle}>○</Text>
+            <MingCuteIcon name="check_circle_line" size={14} color={Colors.blueText} />
             <Text style={styles.progressText}>Identifying ingredients</Text>
           </View>
           <View style={styles.progressRow}>
-            <Text style={styles.progressCircle}>○</Text>
+            <MingCuteIcon name="check_circle_line" size={14} color={Colors.blueText} />
             <Text style={styles.progressText}>Estimating quantities</Text>
           </View>
         </View>
@@ -98,15 +99,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  aiEmoji: {
-    fontSize: 64,
-  },
   labelRow: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  labelEmoji: {
-    fontSize: 11,
   },
   labelText: {
     fontFamily: FontFamily.bold,
@@ -152,14 +147,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
-  },
-  progressEmoji: {
-    fontSize: 14,
-  },
-  progressCircle: {
-    fontFamily: FontFamily.bold,
-    fontSize: 14,
-    color: Colors.textPrimary,
   },
   progressText: {
     flex: 1,

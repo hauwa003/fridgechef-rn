@@ -3,6 +3,7 @@ import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from '../constants/Colors';
 import { FontFamily } from '../constants/Typography';
+import MingCuteIcon from '../components/MingCuteIcon';
 
 export default function CompletionScreen() {
   const router = useRouter();
@@ -13,17 +14,17 @@ export default function CompletionScreen() {
       <View style={styles.topBar}>
         <View style={{ flex: 1 }} />
         <Pressable style={styles.closeButton} onPress={() => router.replace('/(tabs)')}>
-          <Text style={styles.closeText}>✕</Text>
+          <MingCuteIcon name="close_line" size={16} color="#666666" />
         </Pressable>
       </View>
 
       {/* Celebration Content */}
       <View style={styles.content}>
-        {/* Emoji row */}
-        <View style={styles.emojiRow}>
-          <Text style={styles.celebrationEmoji}>🎉</Text>
-          <Text style={styles.celebrationEmoji}>✨</Text>
-          <Text style={styles.celebrationEmoji}>🌿</Text>
+        {/* Icon row */}
+        <View style={styles.iconRow}>
+          <MingCuteIcon name="sparkles_fill" size={36} color={Colors.saffron} />
+          <MingCuteIcon name="heart_fill" size={36} color={Colors.accent} />
+          <MingCuteIcon name="sparkles_fill" size={36} color={Colors.primary} />
         </View>
 
         {/* Title */}
@@ -36,12 +37,12 @@ export default function CompletionScreen() {
 
         {/* Dish Photo Placeholder */}
         <View style={styles.dishPhoto}>
-          <Text style={styles.dishEmoji}>🍝</Text>
+          <MingCuteIcon name="fork_knife_fill" size={80} color={Colors.saffron} />
         </View>
 
         {/* Timer Pill */}
         <View style={styles.timerPill}>
-          <Text style={styles.timerIcon}>⏱</Text>
+          <MingCuteIcon name="time_line" size={14} color="#009A1A" />
           <Text style={styles.timerText}>Finished in 28 min</Text>
         </View>
       </View>
@@ -52,27 +53,32 @@ export default function CompletionScreen() {
 
         {/* Stars */}
         <View style={styles.starsRow}>
-          <Pressable><Text style={styles.starFilled}>★</Text></Pressable>
-          <Pressable><Text style={styles.starFilled}>★</Text></Pressable>
-          <Pressable><Text style={styles.starFilled}>★</Text></Pressable>
-          <Pressable><Text style={styles.starEmpty}>☆</Text></Pressable>
-          <Pressable><Text style={styles.starEmpty}>☆</Text></Pressable>
+          {[1, 2, 3].map((i) => (
+            <Pressable key={i}>
+              <MingCuteIcon name="star_fill" size={32} color="#F5A300" />
+            </Pressable>
+          ))}
+          {[4, 5].map((i) => (
+            <Pressable key={i}>
+              <MingCuteIcon name="star_line" size={32} color="#D9D9D1" />
+            </Pressable>
+          ))}
         </View>
 
         {/* Buttons */}
         <View style={styles.buttonsSection}>
           <Pressable style={styles.saveButton}>
-            <Text style={styles.saveHeart}>♥</Text>
+            <MingCuteIcon name="heart_fill" size={16} color="#FFFFFF" />
             <Text style={styles.saveText}>Save to your recipes</Text>
           </Pressable>
 
           <View style={styles.secondaryRow}>
             <Pressable style={styles.secondaryButton}>
-              <Text style={styles.secondaryIcon}>↗</Text>
+              <MingCuteIcon name="share_forward_line" size={16} color="#000000" />
               <Text style={styles.secondaryLabel}>Share</Text>
             </Pressable>
             <Pressable style={styles.secondaryButton} onPress={() => router.replace('/(tabs)')}>
-              <Text style={styles.secondaryIcon}>✓</Text>
+              <MingCuteIcon name="check_line" size={16} color="#000000" />
               <Text style={styles.secondaryLabel}>Done</Text>
             </Pressable>
           </View>
@@ -102,11 +108,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  closeText: {
-    fontSize: 14,
-    fontFamily: FontFamily.bold,
-    color: '#666666',
-  },
   content: {
     flex: 1,
     alignItems: 'center',
@@ -114,13 +115,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     gap: 24,
   },
-  emojiRow: {
+  iconRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-  },
-  celebrationEmoji: {
-    fontSize: 36,
   },
   title: {
     fontFamily: FontFamily.bold,
@@ -146,9 +144,6 @@ const styles = StyleSheet.create({
     borderWidth: 8,
     borderColor: Colors.saffron,
   },
-  dishEmoji: {
-    fontSize: 100,
-  },
   timerPill: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -159,9 +154,6 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     paddingHorizontal: 14,
     paddingVertical: 8,
-  },
-  timerIcon: {
-    fontSize: 13,
   },
   timerText: {
     fontFamily: FontFamily.bold,
@@ -190,14 +182,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 12,
   },
-  starFilled: {
-    fontSize: 32,
-    color: '#F5A300',
-  },
-  starEmpty: {
-    fontSize: 32,
-    color: '#D9D9D1',
-  },
   buttonsSection: {
     gap: 12,
     paddingTop: 8,
@@ -216,10 +200,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 16,
     elevation: 8,
-  },
-  saveHeart: {
-    fontSize: 16,
-    color: '#FFFFFF',
   },
   saveText: {
     fontFamily: FontFamily.bold,
@@ -241,11 +221,6 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     paddingVertical: 14,
     paddingHorizontal: 16,
-  },
-  secondaryIcon: {
-    fontFamily: FontFamily.bold,
-    fontSize: 14,
-    color: '#000000',
   },
   secondaryLabel: {
     fontFamily: FontFamily.semiBold,

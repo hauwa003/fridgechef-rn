@@ -3,6 +3,7 @@ import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from '../../constants/Colors';
 import { FontFamily } from '../../constants/Typography';
+import MingCuteIcon from '../../components/MingCuteIcon';
 
 export default function PermissionDeniedScreen() {
   const router = useRouter();
@@ -12,7 +13,7 @@ export default function PermissionDeniedScreen() {
       {/* Close button */}
       <View style={styles.topRight}>
         <Pressable style={styles.closeButton} onPress={() => router.back()}>
-          <Text style={styles.closeText}>✕</Text>
+          <MingCuteIcon name="close_line" size={18} color={Colors.textDark} />
         </Pressable>
       </View>
 
@@ -20,7 +21,7 @@ export default function PermissionDeniedScreen() {
       <View style={styles.content}>
         {/* Camera icon */}
         <View style={styles.iconCircle}>
-          <Text style={styles.iconEmoji}>📷</Text>
+          <MingCuteIcon name="camera_2_fill" size={44} color={Colors.textPrimary} />
         </View>
 
         <Text style={styles.title}>Camera access needed</Text>
@@ -37,7 +38,7 @@ export default function PermissionDeniedScreen() {
             <Text style={styles.primaryButtonText}>Open Settings</Text>
           </Pressable>
           <Pressable style={styles.secondaryButton}>
-            <Text style={styles.secondaryEmoji}>🖼</Text>
+            <MingCuteIcon name="pic_line" size={16} color="#333333" />
             <Text style={styles.secondaryText}>Upload from gallery</Text>
           </Pressable>
         </View>
@@ -64,11 +65,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  closeText: {
-    fontSize: 16,
-    color: Colors.textDark,
-    fontWeight: '700',
-  },
   content: {
     flex: 1,
     alignItems: 'center',
@@ -85,9 +81,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2F0EB',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  iconEmoji: {
-    fontSize: 44,
   },
   title: {
     fontFamily: FontFamily.bold,
@@ -136,9 +129,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-  },
-  secondaryEmoji: {
-    fontSize: 14,
   },
   secondaryText: {
     fontFamily: FontFamily.semiBold,

@@ -1,7 +1,8 @@
 import { Tabs } from 'expo-router';
-import { Text, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Colors } from '../../constants/Colors';
 import { FontFamily } from '../../constants/Typography';
+import MingCuteIcon from '../../components/MingCuteIcon';
 
 export default function TabLayout() {
   return (
@@ -19,7 +20,11 @@ export default function TabLayout() {
         options={{
           title: 'HOME',
           tabBarIcon: ({ focused }) => (
-            <Text style={[styles.icon, !focused && styles.iconInactive]}>🏠</Text>
+            <MingCuteIcon
+              name={focused ? 'home_4_fill' : 'home_4_line'}
+              size={22}
+              color={focused ? Colors.primary : Colors.textMuted}
+            />
           ),
         }}
       />
@@ -28,7 +33,11 @@ export default function TabLayout() {
         options={{
           title: 'RECIPES',
           tabBarIcon: ({ focused }) => (
-            <Text style={[styles.icon, !focused && styles.iconInactive]}>📖</Text>
+            <MingCuteIcon
+              name={focused ? 'book_2_fill' : 'book_2_line'}
+              size={22}
+              color={focused ? Colors.primary : Colors.textMuted}
+            />
           ),
         }}
       />
@@ -37,7 +46,11 @@ export default function TabLayout() {
         options={{
           title: 'SETTINGS',
           tabBarIcon: ({ focused }) => (
-            <Text style={[styles.icon, !focused && styles.iconInactive]}>⚙️</Text>
+            <MingCuteIcon
+              name={focused ? 'settings_3_fill' : 'settings_3_line'}
+              size={22}
+              color={focused ? Colors.primary : Colors.textMuted}
+            />
           ),
         }}
       />
@@ -57,11 +70,5 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.bold,
     fontSize: 10,
     letterSpacing: 0.2,
-  },
-  icon: {
-    fontSize: 22,
-  },
-  iconInactive: {
-    opacity: 0.5,
   },
 });

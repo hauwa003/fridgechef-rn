@@ -3,6 +3,7 @@ import { useRouter } from 'expo-router';
 import { Colors } from '../../constants/Colors';
 import { Typography } from '../../constants/Typography';
 import { Spacing } from '../../constants/Spacing';
+import MingCuteIcon from '../MingCuteIcon';
 
 interface TopBarProps {
   title?: string;
@@ -18,7 +19,7 @@ export function TopBar({ title, showBack = true, rightAction }: TopBarProps) {
       <View style={styles.left}>
         {showBack && (
           <Pressable onPress={() => router.back()} style={styles.backButton}>
-            <Text style={styles.backIcon}>←</Text>
+            <MingCuteIcon name="arrow_left_line" size={22} color={Colors.textPrimary} />
           </Pressable>
         )}
       </View>
@@ -57,10 +58,6 @@ const styles = StyleSheet.create({
     height: 44,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  backIcon: {
-    fontSize: 24,
-    color: Colors.textPrimary,
   },
   title: {
     ...Typography.subtitle,
