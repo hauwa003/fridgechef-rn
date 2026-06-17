@@ -32,7 +32,8 @@
         {
           "cameraPermission": "Allow FridgeChef to access your camera to scan ingredients."
         }
-      ]
+      ],
+      "expo-video"
     ]
   }
 }
