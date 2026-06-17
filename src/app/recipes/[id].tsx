@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 24,
     bottom: 52,
-    fontFamily: FontFamily.bold,
+    fontFamily: FontFamily.heading,
     fontSize: 34,
     color: Colors.white,
     letterSpacing: -1.36,
@@ -295,7 +295,7 @@ const styles = StyleSheet.create({
   },
   matchColumn: { gap: 4 },
   matchPercent: {
-    fontFamily: FontFamily.bold,
+    fontFamily: FontFamily.heading,
     fontSize: 48,
     color: Colors.primary,
     letterSpacing: -1.92,
@@ -416,7 +416,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   ingredientsTitle: {
-    fontFamily: FontFamily.bold,
+    fontFamily: FontFamily.heading,
     fontSize: 20,
     color: Colors.textPrimary,
     letterSpacing: -0.8,

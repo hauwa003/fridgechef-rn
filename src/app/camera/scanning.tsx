@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.88,
   },
   title: {
-    fontFamily: FontFamily.bold,
+    fontFamily: FontFamily.heading,
     fontSize: 24,
     color: Colors.textPrimary,
     textAlign: 'center',

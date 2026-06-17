@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 22,
-    fontFamily: FontFamily.bold,
+    fontFamily: FontFamily.heading,
     color: '#1A1A1A',
     textAlign: 'center',
     letterSpacing: -0.66,
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
   },
   profileName: {
     fontSize: 16,
-    fontFamily: FontFamily.bold,
+    fontFamily: FontFamily.heading,
     color: '#1A1A1A',
   },
   profileBadgeRow: {

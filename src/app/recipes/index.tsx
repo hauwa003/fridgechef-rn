@@ -360,7 +360,7 @@ const styles = StyleSheet.create({
   },
   topTitle: {
     fontSize: 16,
-    fontFamily: FontFamily.bold,
+    fontFamily: FontFamily.heading,
     color: Colors.textPrimary,
     letterSpacing: -0.32,
   },
@@ -382,7 +382,7 @@ const styles = StyleSheet.create({
   },
   bannerTitle: {
     fontSize: 22,
-    fontFamily: FontFamily.bold,
+    fontFamily: FontFamily.heading,
     color: Colors.textPrimary,
     letterSpacing: -0.88,
   },
@@ -494,7 +494,7 @@ const styles = StyleSheet.create({
   },
   featuredTitle: {
     fontSize: 20,
-    fontFamily: FontFamily.bold,
+    fontFamily: FontFamily.heading,
     color: Colors.textPrimary,
     letterSpacing: -0.6,
   },
@@ -560,7 +560,7 @@ const styles = StyleSheet.create({
   compactName: {
     flex: 1,
     fontSize: 15,
-    fontFamily: FontFamily.bold,
+    fontFamily: FontFamily.heading,
     color: Colors.textPrimary,
     letterSpacing: -0.3,
   },

@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontFamily: FontFamily.bold,
+    fontFamily: FontFamily.heading,
     fontSize: 24,
     color: Colors.textPrimary,
     textAlign: 'center',

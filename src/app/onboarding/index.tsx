@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   heading: {
-    fontFamily: 'BricolageGrotesque_700Bold',
+    fontFamily: FontFamily.heading,
     fontSize: 34,
     color: Colors.white,
     letterSpacing: -0.68,

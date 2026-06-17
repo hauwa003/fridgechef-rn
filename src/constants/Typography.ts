@@ -1,6 +1,7 @@
 import { TextStyle } from 'react-native';
 
 export const FontFamily = {
+  heading: 'BricolageGrotesque_700Bold',
   bold: 'NunitoSans_700Bold',
   semiBold: 'NunitoSans_600SemiBold',
   medium: 'NunitoSans_500Medium',
@@ -9,17 +10,17 @@ export const FontFamily = {
 
 export const Typography: Record<string, TextStyle> = {
   h1: {
-    fontFamily: FontFamily.bold,
+    fontFamily: FontFamily.heading,
     fontSize: 28,
     lineHeight: 36,
   },
   h2: {
-    fontFamily: FontFamily.bold,
+    fontFamily: FontFamily.heading,
     fontSize: 24,
     lineHeight: 32,
   },
   h3: {
-    fontFamily: FontFamily.semiBold,
+    fontFamily: FontFamily.heading,
     fontSize: 20,
     lineHeight: 28,
   },

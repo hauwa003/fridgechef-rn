@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
   },
   heroTitle: {
     fontSize: 28,
-    fontFamily: FontFamily.bold,
+    fontFamily: FontFamily.heading,
     color: Colors.textPrimary,
     letterSpacing: -1.12,
     lineHeight: 34,
@@ -300,7 +300,7 @@ const styles = StyleSheet.create({
   },
   featureTitle: {
     fontSize: 15,
-    fontFamily: FontFamily.bold,
+    fontFamily: FontFamily.heading,
     color: Colors.textPrimary,
     letterSpacing: -0.3,
   },

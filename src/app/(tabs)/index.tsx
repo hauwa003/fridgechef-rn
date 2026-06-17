@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     color: Colors.textMuted,
   },
   greeting: {
-    fontFamily: FontFamily.bold,
+    fontFamily: FontFamily.heading,
     fontSize: 22,
     color: Colors.textPrimary,
     letterSpacing: -0.66,
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
   },
   sectionTitle: {
-    fontFamily: FontFamily.bold,
+    fontFamily: FontFamily.heading,
     fontSize: 18,
     color: Colors.textPrimary,
     letterSpacing: -0.54,

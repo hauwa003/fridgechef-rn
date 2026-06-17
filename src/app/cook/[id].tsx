@@ -188,14 +188,14 @@ const styles = StyleSheet.create({
     marginBottom: -8,
   },
   stepNumber: {
-    fontFamily: FontFamily.bold,
+    fontFamily: FontFamily.heading,
     fontSize: 80,
     color: Colors.primary,
     letterSpacing: -4.8,
     lineHeight: 84,
   },
   stepTitle: {
-    fontFamily: FontFamily.bold,
+    fontFamily: FontFamily.heading,
     fontSize: 24,
     color: Colors.textPrimary,
     letterSpacing: -0.72,

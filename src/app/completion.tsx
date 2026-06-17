@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   title: {
-    fontFamily: FontFamily.bold,
+    fontFamily: FontFamily.heading,
     fontSize: 48,
     color: '#1A1A1A',
     textAlign: 'center',
