@@ -438,7 +438,7 @@ const MANAGE_ROWS: ManageRow[] = [
   },
 ];
 
-function AlreadySubscribedState({ onClose }: { onClose: () => void }) {
+function AlreadySubscribedState({ onClose, onCancel }: { onClose: () => void; onCancel: () => void }) {
   return (
     <>
       <HeroSection
@@ -476,7 +476,7 @@ function AlreadySubscribedState({ onClose }: { onClose: () => void }) {
         <Pressable style={styles.outlineButton} onPress={onClose}>
           <Text style={styles.outlineButtonText}>Back to cooking</Text>
         </Pressable>
-        <Pressable onPress={() => {}}>
+        <Pressable onPress={onCancel}>
           <Text style={styles.cancelLink}>Cancel subscription</Text>
         </Pressable>
       </View>
@@ -550,7 +550,7 @@ function CancellationState({ onClose }: { onClose: () => void }) {
       {/* CTAs */}
       <View style={styles.pricingSection}>
         <CtaButton label="Keep my subscription" onPress={onClose} />
-        <Pressable style={styles.cancelAnywayButton} onPress={() => {}}>
+        <Pressable style={styles.cancelAnywayButton} onPress={onClose}>
           <Text style={styles.cancelAnywayText}>Cancel anyway</Text>
         </Pressable>
       </View>
@@ -588,7 +588,7 @@ export default function PaywallScreen() {
       case 'trial_confirmed':
         return <TrialConfirmedState onClose={onClose} />;
       case 'already_subscribed':
-        return <AlreadySubscribedState onClose={onClose} />;
+        return <AlreadySubscribedState onClose={onClose} onCancel={() => router.replace('/paywall?variant=cancellation')} />;
       case 'cancellation':
         return <CancellationState onClose={onClose} />;
       default:
