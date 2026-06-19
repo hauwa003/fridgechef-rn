@@ -1,4 +1,4 @@
-import { Ingredient, Recipe } from '../types';
+import { Ingredient, Recipe, ReviewIngredient } from '../types';
 
 export const mockIngredients: Ingredient[] = [
   { id: '1', name: 'Chicken Breast', emoji: '🍗', selected: true },
@@ -9,6 +9,34 @@ export const mockIngredients: Ingredient[] = [
   { id: '6', name: 'Bell Pepper', emoji: '🫑', selected: false },
   { id: '7', name: 'Rice', emoji: '🍚', selected: true },
   { id: '8', name: 'Lemon', emoji: '🍋', selected: true },
+];
+
+export const mockReviewIngredients: ReviewIngredient[] = [
+  { id: 'r1', name: 'Chicken Breast', emoji: '🍗', category: 'PRODUCE', confidence: 'confirmed' },
+  { id: 'r2', name: 'Garlic', emoji: '🧄', category: 'PRODUCE', confidence: 'confirmed' },
+  { id: 'r3', name: 'Onion', emoji: '🧅', category: 'PRODUCE', confidence: 'confirmed' },
+  { id: 'r4', name: 'Tomato', emoji: '🍅', category: 'PRODUCE', confidence: 'maybe', altName: 'or maybe red bell pepper', suggestions: ['Tomato', 'Red bell pepper', 'Cherry tomatoes'] },
+  { id: 'r5', name: 'Lemon', emoji: '🍋', category: 'PRODUCE', confidence: 'confirmed' },
+  { id: 'r6', name: 'Spinach', emoji: '🥬', category: 'PRODUCE', confidence: 'maybe', altName: 'or maybe kale', suggestions: ['Spinach', 'Kale', 'Arugula'] },
+  { id: 'r7', name: 'Milk', emoji: '🥛', category: 'DAIRY', confidence: 'confirmed' },
+  { id: 'r8', name: 'Butter', emoji: '🧈', category: 'DAIRY', confidence: 'confirmed' },
+  { id: 'r9', name: 'Cheese', emoji: '🧀', category: 'DAIRY', confidence: 'fix', altName: 'couldn\'t identify the type', suggestions: ['Cheddar', 'Mozzarella', 'Parmesan', 'Gouda'] },
+  { id: 'r10', name: 'Rice', emoji: '🍚', category: 'PANTRY', confidence: 'confirmed' },
+  { id: 'r11', name: 'Olive Oil', emoji: '🫒', category: 'PANTRY', confidence: 'confirmed' },
+  { id: 'r12', name: 'Pasta', emoji: '🍝', category: 'PANTRY', confidence: 'fix', altName: 'blurry — is this spaghetti or linguine?', suggestions: ['Spaghetti', 'Linguine', 'Penne', 'Fettuccine'] },
+];
+
+export const addIngredientSuggestions: ReviewIngredient[] = [
+  { id: 'a1', name: 'Salt', emoji: '🧂', category: 'PANTRY', confidence: 'confirmed' },
+  { id: 'a2', name: 'Black Pepper', emoji: '🌶️', category: 'PANTRY', confidence: 'confirmed' },
+  { id: 'a3', name: 'Sugar', emoji: '🍬', category: 'PANTRY', confidence: 'confirmed' },
+  { id: 'a4', name: 'Flour', emoji: '🌾', category: 'PANTRY', confidence: 'confirmed' },
+  { id: 'a5', name: 'Eggs', emoji: '🥚', category: 'DAIRY', confidence: 'confirmed' },
+  { id: 'a6', name: 'Carrot', emoji: '🥕', category: 'PRODUCE', confidence: 'confirmed' },
+  { id: 'a7', name: 'Potato', emoji: '🥔', category: 'PRODUCE', confidence: 'confirmed' },
+  { id: 'a8', name: 'Mushroom', emoji: '🍄', category: 'PRODUCE', confidence: 'confirmed' },
+  { id: 'a9', name: 'Soy Sauce', emoji: '🫙', category: 'PANTRY', confidence: 'confirmed' },
+  { id: 'a10', name: 'Yogurt', emoji: '🫙', category: 'DAIRY', confidence: 'confirmed' },
 ];
 
 export const mockRecipes: Recipe[] = [

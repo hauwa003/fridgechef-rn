@@ -26,3 +26,15 @@ export interface CookStep {
   description: string;
   duration?: string;
 }
+
+export type IngredientConfidence = 'confirmed' | 'maybe' | 'fix';
+
+export type ReviewIngredient = {
+  id: string;
+  name: string;
+  emoji: string;
+  category: 'PRODUCE' | 'DAIRY' | 'PANTRY';
+  confidence: IngredientConfidence;
+  altName?: string;
+  suggestions?: string[];
+};

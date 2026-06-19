@@ -76,6 +76,25 @@ export const Colors = {
   black: '#000000',
   transparent: 'transparent',
 
+  // Review screen — ingredient states
+  fixBg: '#F7F5F2',
+  fixBorder: '#D1CCC7',
+  confirmedBorder: '#D9EBD1',
+  addBg: '#F5F7FF',
+  addBorder: '#C7D4F2',
+  addText: '#1F3B8A',
+  aiHintBg: '#FFFAEB',
+  aiHintBorder: '#F5D98C',
+  aiHintText: '#8C6600',
+  removeBg: '#FFF5F2',
+  removeBorder: '#F5C7C7',
+  removeText: '#CC3333',
+
+  // Category dots
+  categoryDotProduce: '#4CAF50',
+  categoryDotDairy: '#42A5F5',
+  categoryDotPantry: '#FF9800',
+
   // Semantic
   success: '#009A1A',
   error: '#E63946',
