@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { View, Text, Pressable, ScrollView, Modal, Linking, StyleSheet } from 'react-native';
+import { useState, useEffect, useRef } from 'react';
+import { View, Text, Pressable, ScrollView, Modal, Linking, Animated, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -76,21 +76,43 @@ function SettingsSheet({
   onClose: () => void;
   children: React.ReactNode;
 }) {
+  const slideAnim = useRef(new Animated.Value(400)).current;
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (visible) {
+      Animated.parallel([
+        Animated.timing(fadeAnim, { toValue: 1, duration: 250, useNativeDriver: true }),
+        Animated.spring(slideAnim, { toValue: 0, damping: 20, stiffness: 200, useNativeDriver: true }),
+      ]).start();
+    } else {
+      slideAnim.setValue(400);
+      fadeAnim.setValue(0);
+    }
+  }, [visible, slideAnim, fadeAnim]);
+
+  const handleClose = () => {
+    Animated.parallel([
+      Animated.timing(fadeAnim, { toValue: 0, duration: 300, useNativeDriver: true }),
+      Animated.spring(slideAnim, { toValue: 400, damping: 20, stiffness: 200, useNativeDriver: true }),
+    ]).start(() => onClose());
+  };
+
   return (
-    <Modal visible={visible} transparent animationType="slide">
-      <View style={styles.modalOverlay}>
-        <Pressable style={styles.modalOverlayTouch} onPress={onClose} />
-        <View style={styles.sheetContainer}>
+    <Modal visible={visible} transparent statusBarTranslucent>
+      <Animated.View style={[styles.modalOverlay, { opacity: fadeAnim }]}>
+        <Pressable style={styles.modalOverlayTouch} onPress={handleClose} />
+        <Animated.View style={[styles.sheetContainer, { transform: [{ translateY: slideAnim }] }]}>
           <View style={styles.sheetHandle} />
           <View style={styles.sheetHeader}>
             <Text style={styles.sheetTitle}>{title}</Text>
-            <Pressable style={styles.sheetCloseBtn} onPress={onClose}>
+            <Pressable style={styles.sheetCloseBtn} onPress={handleClose}>
               <MingCuteIcon name="close_line" size={16} color="#1A1A1A" />
             </Pressable>
           </View>
           {children}
-        </View>
-      </View>
+        </Animated.View>
+      </Animated.View>
     </Modal>
   );
 }
@@ -103,7 +125,7 @@ export default function SettingsScreen() {
   const router = useRouter();
 
   // Settings state
-  const [dietary, setDietary] = useState('Vegetarian');
+  const [dietary, setDietary] = useState<string[]>(['Vegetarian']);
   const [servings, setServings] = useState(2);
   const [notifications, setNotifications] = useState(true);
   const [retention, setRetention] = useState('Delete after 24h');
@@ -155,7 +177,7 @@ export default function SettingsScreen() {
           <View style={styles.section}>
             <Text style={styles.sectionLabel}>PREFERENCES</Text>
             <View style={styles.card}>
-              <SettingsRow icon="fork_knife_line" iconColor={Colors.primary} iconBg={Colors.greenLightBg} label="Dietary preferences" value={dietary} onPress={() => setActiveSheet('dietary')} />
+              <SettingsRow icon="fork_knife_line" iconColor={Colors.primary} iconBg={Colors.greenLightBg} label="Dietary preferences" value={dietary.includes('None') ? 'None' : dietary.length <= 2 ? dietary.join(', ') : `${dietary.slice(0, 2).join(', ')} +${dietary.length - 2}`} onPress={() => setActiveSheet('dietary')} />
               <View style={styles.separator} />
               <SettingsRow icon="group_line" iconColor={Colors.blue} iconBg={Colors.blueLightBg} label="Default servings" value={String(servings)} onPress={() => setActiveSheet('servings')} />
               <View style={styles.separator} />
@@ -189,12 +211,24 @@ export default function SettingsScreen() {
       <SettingsSheet visible={activeSheet === 'dietary'} title="Dietary preferences" onClose={() => setActiveSheet(null)}>
         <View style={styles.sheetChipWrap}>
           {DIETARY_OPTIONS.map((opt) => {
-            const selected = dietary === opt;
+            const isNone = opt === 'None';
+            const selected = isNone ? dietary.includes('None') : dietary.includes(opt);
             return (
               <Pressable
                 key={opt}
                 style={[styles.sheetChip, selected && styles.sheetChipSelected]}
-                onPress={() => { setDietary(opt); setActiveSheet(null); }}
+                onPress={() => {
+                  if (isNone) {
+                    setDietary(['None']);
+                  } else {
+                    setDietary((prev) => {
+                      const without = prev.filter((d) => d !== 'None');
+                      return without.includes(opt)
+                        ? without.filter((d) => d !== opt)
+                        : [...without, opt];
+                    });
+                  }
+                }}
               >
                 {selected && <MingCuteIcon name="check_fill" size={14} color={Colors.white} />}
                 <Text style={[styles.sheetChipText, selected && styles.sheetChipTextSelected]}>{opt}</Text>
@@ -202,6 +236,9 @@ export default function SettingsScreen() {
             );
           })}
         </View>
+        <Pressable style={styles.sheetCta} onPress={() => setActiveSheet(null)}>
+          <Text style={styles.sheetCtaText}>Done</Text>
+        </Pressable>
       </SettingsSheet>
 
       {/* ── Servings Sheet ── */}
