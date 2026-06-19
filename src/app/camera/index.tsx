@@ -1,12 +1,27 @@
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { useState } from 'react';
+import { View, Text, Pressable, Alert, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
+import * as ImagePicker from 'expo-image-picker';
 import { Colors } from '../../constants/Colors';
 import { FontFamily } from '../../constants/Typography';
 
 export default function CameraScreen() {
   const router = useRouter();
+  const [flashOn, setFlashOn] = useState(false);
+  const [frontCamera, setFrontCamera] = useState(false);
+
+  const handleGallery = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images'],
+      quality: 0.8,
+    });
+    if (!result.canceled) {
+      // Photo selected — proceed to scanning
+      router.push('/camera/scanning');
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -15,8 +30,11 @@ export default function CameraScreen() {
         <Pressable style={styles.topButton} onPress={() => router.back()}>
           <Text style={styles.topButtonText}>✕</Text>
         </Pressable>
-        <Pressable style={styles.topButton}>
-          <Text style={styles.topButtonEmoji}>⚡</Text>
+        <Pressable
+          style={[styles.topButton, flashOn && styles.topButtonActive]}
+          onPress={() => setFlashOn((f) => !f)}
+        >
+          <Text style={styles.topButtonEmoji}>{flashOn ? '⚡' : '⚡'}</Text>
         </Pressable>
       </View>
 
@@ -25,7 +43,11 @@ export default function CameraScreen() {
         {/* Hint Pill */}
         <View style={styles.hintPill}>
           <Text style={styles.hintEmoji}>✨</Text>
-          <Text style={styles.hintText}>Open your fridge and frame the contents</Text>
+          <Text style={styles.hintText}>
+            {frontCamera
+              ? 'Hold items up to the camera'
+              : 'Open your fridge and frame the contents'}
+          </Text>
         </View>
 
         {/* Spacer */}
@@ -62,7 +84,7 @@ export default function CameraScreen() {
       {/* Bottom Controls */}
       <View style={styles.bottomControls}>
         {/* Gallery Button */}
-        <Pressable style={styles.sideButton}>
+        <Pressable style={styles.sideButton} onPress={handleGallery}>
           <Text style={styles.sideButtonEmoji}>🖼</Text>
         </Pressable>
 
@@ -77,7 +99,7 @@ export default function CameraScreen() {
         </Pressable>
 
         {/* Flip Camera Button */}
-        <Pressable style={styles.sideButton}>
+        <Pressable style={styles.sideButton} onPress={() => setFrontCamera((f) => !f)}>
           <Text style={styles.sideButtonEmoji}>🔄</Text>
         </Pressable>
       </View>
@@ -105,6 +127,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.15)',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  topButtonActive: {
+    backgroundColor: 'rgba(245,163,0,0.35)',
   },
   topButtonText: {
     fontSize: 16,

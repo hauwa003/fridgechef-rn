@@ -1,12 +1,23 @@
 import { View, Text, Pressable, Linking, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import * as ImagePicker from 'expo-image-picker';
 import { Colors } from '../../constants/Colors';
 import { FontFamily } from '../../constants/Typography';
 import MingCuteIcon from '../../components/MingCuteIcon';
 
 export default function PermissionDeniedScreen() {
   const router = useRouter();
+
+  const handleGallery = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images'],
+      quality: 0.8,
+    });
+    if (!result.canceled) {
+      router.push('/camera/scanning');
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -37,7 +48,7 @@ export default function PermissionDeniedScreen() {
           >
             <Text style={styles.primaryButtonText}>Open Settings</Text>
           </Pressable>
-          <Pressable style={styles.secondaryButton}>
+          <Pressable style={styles.secondaryButton} onPress={handleGallery}>
             <MingCuteIcon name="pic_line" size={16} color="#333333" />
             <Text style={styles.secondaryText}>Upload from gallery</Text>
           </Pressable>

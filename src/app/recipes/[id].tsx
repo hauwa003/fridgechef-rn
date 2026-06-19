@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import {
-  View, Text, ScrollView, Pressable, Modal, StyleSheet,
+  View, Text, ScrollView, Pressable, Modal, Share, StyleSheet,
 } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -132,7 +132,7 @@ export default function RecipeDetailScreen() {
               <MingCuteIcon name="arrow_left_line" size={20} color={Colors.textPrimary} />
             </Pressable>
             <View style={styles.heroRight}>
-              <Pressable style={styles.heroButton}>
+              <Pressable style={styles.heroButton} onPress={() => Share.share({ message: `Check out this recipe: ${recipe.title} — ${recipe.matchPercent}% match with my fridge!` })}>
                 <MingCuteIcon name="share_forward_line" size={20} color={Colors.textPrimary} />
               </Pressable>
               <Pressable
