@@ -95,6 +95,15 @@ export const Colors = {
   categoryDotDairy: '#42A5F5',
   categoryDotPantry: '#FF9800',
 
+  // Sort / filter sheet
+  sortActiveBg: '#F5FCF0',
+  sortActiveBorder: '#D9F2D9',
+  chipBorder: '#D1D1CC',
+  chipActiveBorder: '#D9D9D4',
+  overlayBg: 'rgba(0,0,0,0.55)',
+  emptyCircleBg: '#F2F0EB',
+  loadingGradientEnd: '#CCF2B8',
+
   // Semantic
   success: '#009A1A',
   error: '#E63946',

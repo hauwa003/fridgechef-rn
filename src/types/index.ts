@@ -38,3 +38,21 @@ export type ReviewIngredient = {
   altName?: string;
   suggestions?: string[];
 };
+
+export type RecipeListRecipe = {
+  id: string;
+  title: string;
+  cuisine: string;
+  cuisineEmoji: string;
+  cuisineBadgeColor: string;
+  matchPercent: number;
+  cookTime: string;
+  servings: number;
+  difficulty: 'Easy' | 'Medium';
+  description?: string;
+  ingredientMatch: string;
+  matchedCount: number;
+  totalCount: number;
+  placeholderBg: string;
+  placeholderEmoji: string;
+};
