@@ -1,4 +1,5 @@
 import { View, Text, Pressable, ScrollView, StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Colors } from '../../constants/Colors';
@@ -14,11 +15,12 @@ type SettingsRowProps = {
   value?: string;
   showChevron?: boolean;
   toggle?: boolean;
+  onPress?: () => void;
 };
 
-function SettingsRow({ icon, iconColor, iconBg, label, value, showChevron = true, toggle = false }: SettingsRowProps) {
+function SettingsRow({ icon, iconColor, iconBg, label, value, showChevron = true, toggle = false, onPress }: SettingsRowProps) {
   return (
-    <Pressable style={styles.row}>
+    <Pressable style={styles.row} onPress={onPress}>
       <View style={[styles.iconSquare, { backgroundColor: iconBg }]}>
         <MingCuteIcon name={icon} size={16} color={iconColor} />
       </View>
@@ -38,6 +40,8 @@ function SettingsRow({ icon, iconColor, iconBg, label, value, showChevron = true
 }
 
 export default function SettingsScreen() {
+  const router = useRouter();
+
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <Text style={styles.title}>Settings</Text>
@@ -74,9 +78,9 @@ export default function SettingsScreen() {
           <View style={styles.section}>
             <Text style={styles.sectionLabel}>SUBSCRIPTION</Text>
             <View style={styles.card}>
-              <SettingsRow icon="trophy_fill" iconColor={Colors.saffron} iconBg={Colors.saffronLightBg} label="Manage Plus" value="Annual" />
+              <SettingsRow icon="trophy_fill" iconColor={Colors.saffron} iconBg={Colors.saffronLightBg} label="Manage Plus" value="Annual" onPress={() => router.push('/paywall?variant=already_subscribed')} />
               <View style={styles.separator} />
-              <SettingsRow icon="bank_card_line" iconColor={Colors.blue} iconBg={Colors.blueLightBg} label="Billing" value="Visa •• 4242" />
+              <SettingsRow icon="bank_card_line" iconColor={Colors.blue} iconBg={Colors.blueLightBg} label="Billing" value="Visa •• 4242" onPress={() => router.push('/paywall?variant=already_subscribed')} />
             </View>
           </View>
 

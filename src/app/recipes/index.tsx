@@ -162,7 +162,12 @@ export default function RecipeListScreen() {
       {screenState === 'loading' && <LoadingState progress={loadingProgress} />}
 
       {/* ── Empty State ── */}
-      {screenState === 'empty' && <EmptyState />}
+      {screenState === 'empty' && (
+        <EmptyState
+          onAddIngredients={() => router.push('/camera')}
+          onBrowse={() => router.replace('/(tabs)/recipes')}
+        />
+      )}
 
       {/* ── Loaded State ── */}
       {screenState === 'loaded' && featured && (
@@ -368,7 +373,7 @@ function LoadingState({ progress }: { progress: number }) {
 
 // ─── Empty State Component ──────────────────────────────────
 
-function EmptyState() {
+function EmptyState({ onAddIngredients, onBrowse }: { onAddIngredients: () => void; onBrowse: () => void }) {
   return (
     <View style={styles.emptyContainer}>
       <View style={styles.emptyCircle}>
@@ -379,10 +384,10 @@ function EmptyState() {
         Add ingredients to your fridge to find recipe matches
       </Text>
 
-      <Pressable style={styles.emptyCta}>
+      <Pressable style={styles.emptyCta} onPress={onAddIngredients}>
         <Text style={styles.emptyCtaText}>Add more ingredients</Text>
       </Pressable>
-      <Pressable style={styles.emptyOutlineCta}>
+      <Pressable style={styles.emptyOutlineCta} onPress={onBrowse}>
         <Text style={styles.emptyOutlineCtaText}>Browse pantry recipes</Text>
       </Pressable>
     </View>

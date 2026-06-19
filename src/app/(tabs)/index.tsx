@@ -49,7 +49,9 @@ export default function HomeScreen() {
         {/* Recently cooked */}
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Recently cooked</Text>
-          <Text style={styles.seeAll}>See all</Text>
+          <Pressable onPress={() => router.push('/(tabs)/recipes')}>
+            <Text style={styles.seeAll}>See all</Text>
+          </Pressable>
         </View>
 
         {mockRecipes.slice(0, 2).map((recipe) => (

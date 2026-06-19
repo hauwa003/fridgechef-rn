@@ -174,7 +174,7 @@ export default function RecipeDetailScreen() {
                 <Text style={styles.savedToastTitle}>Saved to your recipes</Text>
                 <Text style={styles.savedToastSub}>Find in your library anytime</Text>
               </View>
-              <Pressable onPress={() => router.push('/(tabs)/saved')}>
+              <Pressable onPress={() => router.push('/(tabs)/recipes')}>
                 <Text style={styles.savedToastLink}>{'View →'}</Text>
               </Pressable>
             </View>
