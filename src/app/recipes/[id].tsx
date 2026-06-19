@@ -57,11 +57,40 @@ export default function RecipeDetailScreen() {
   const [isLoading, setIsLoading] = useState(false);
   const [substituteSheet, setSubstituteSheet] = useState<string | null>(null);
   const [substituteIndex, setSubstituteIndex] = useState(0);
+  const [showShoppingSheet, setShowShoppingSheet] = useState(false);
+  const [addedToShopping, setAddedToShopping] = useState(false);
+  const [showShoppingToast, setShowShoppingToast] = useState(false);
 
   const availableCount = 3;
   const totalCount = recipe.ingredients.length + 2;
   const missingCount = totalCount - availableCount;
   const allMatch = missingCount === 0;
+
+  // Missing ingredients for shopping sheet
+  const missingIngredients = recipe.ingredients.slice(availableCount).map((name, i) => ({
+    id: `miss-${i}`,
+    name,
+    amount: '2 medium',
+  }));
+  // Add phantom missing items to match missingCount
+  const extraMissing = Array.from(
+    { length: Math.max(0, missingCount - missingIngredients.length) },
+    (_, i) => ({ id: `extra-${i}`, name: `Ingredient ${availableCount + missingIngredients.length + i + 1}`, amount: '1 unit' }),
+  );
+  const allMissing = [...missingIngredients, ...extraMissing];
+
+  const [shoppingChecked, setShoppingChecked] = useState<Record<string, boolean>>(() =>
+    Object.fromEntries(allMissing.map((m) => [m.id, true])),
+  );
+
+  const checkedCount = Object.values(shoppingChecked).filter(Boolean).length;
+
+  const handleAddToShopping = useCallback(() => {
+    setShowShoppingSheet(false);
+    setAddedToShopping(true);
+    setShowShoppingToast(true);
+    setTimeout(() => setShowShoppingToast(false), 3000);
+  }, []);
 
   const toggleSaved = useCallback(() => {
     const next = !saved;
@@ -148,6 +177,18 @@ export default function RecipeDetailScreen() {
               <Pressable onPress={() => router.push('/(tabs)/saved')}>
                 <Text style={styles.savedToastLink}>{'View →'}</Text>
               </Pressable>
+            </View>
+          )}
+
+          {/* Shopping Toast */}
+          {showShoppingToast && (
+            <View style={styles.shoppingToast}>
+              <MingCuteIcon name="shopping_cart_1_line" size={18} color={Colors.primary} />
+              <View style={styles.savedToastText}>
+                <Text style={styles.savedToastTitle}>{checkedCount} items added</Text>
+                <Text style={styles.savedToastSub}>Check your shopping list</Text>
+              </View>
+              <MingCuteIcon name="check_fill" size={18} color={Colors.primary} />
             </View>
           )}
 
@@ -315,12 +356,18 @@ export default function RecipeDetailScreen() {
             {!allMatch ? ' · works with substitutions' : ''}
           </Text>
         </Pressable>
-        {!allMatch && (
-          <View style={styles.shoppingRow}>
+        {!allMatch && !addedToShopping && (
+          <Pressable style={styles.shoppingRow} onPress={() => setShowShoppingSheet(true)}>
             <MingCuteIcon name="shopping_cart_1_line" size={14} color={Colors.textSecondary} />
             <Text style={styles.shoppingText}>
               Add {missingCount} missing to shopping list
             </Text>
+          </Pressable>
+        )}
+        {addedToShopping && (
+          <View style={styles.shoppingRowDone}>
+            <MingCuteIcon name="check_fill" size={14} color={Colors.primary} />
+            <Text style={styles.shoppingTextDone}>Added to shopping list</Text>
           </View>
         )}
       </View>
@@ -417,6 +464,74 @@ export default function RecipeDetailScreen() {
           <Text style={styles.sheetHint}>
             {substituteIndex + 1} of {SUBSTITUTES.length} suggestions  •  Swipe to compare
           </Text>
+        </View>
+      </Modal>
+
+      {/* Shopping List Bottom Sheet */}
+      <Modal
+        visible={showShoppingSheet}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setShowShoppingSheet(false)}
+      >
+        <Pressable style={styles.sheetOverlay} onPress={() => setShowShoppingSheet(false)} />
+        <View style={[styles.sheetContainer, { paddingBottom: Math.max(insets.bottom, 24) }]}>
+          {/* Handle */}
+          <View style={styles.sheetHandleRow}>
+            <View style={styles.sheetHandle} />
+          </View>
+
+          {/* Header */}
+          <View style={styles.sheetHeader}>
+            <View style={styles.sheetHeaderLeft}>
+              <Text style={styles.sheetIngredientName}>Add to shopping list</Text>
+              <Text style={styles.shopSheetSub}>
+                {checkedCount} of {allMissing.length} items selected
+              </Text>
+            </View>
+            <Pressable style={styles.sheetClose} onPress={() => setShowShoppingSheet(false)}>
+              <MingCuteIcon name="close_line" size={16} color={Colors.textSecondary} />
+            </Pressable>
+          </View>
+
+          {/* Ingredient rows */}
+          <View style={styles.shopList}>
+            {allMissing.map((item) => {
+              const checked = shoppingChecked[item.id];
+              return (
+                <Pressable
+                  key={item.id}
+                  style={styles.shopRow}
+                  onPress={() =>
+                    setShoppingChecked((prev) => ({ ...prev, [item.id]: !prev[item.id] }))
+                  }
+                >
+                  <View style={[styles.shopCheckbox, checked && styles.shopCheckboxChecked]}>
+                    {checked && <MingCuteIcon name="check_line" size={12} color={Colors.white} />}
+                  </View>
+                  <View style={styles.shopItemInfo}>
+                    <Text style={[styles.shopItemName, !checked && styles.shopItemUnchecked]}>
+                      {item.name}
+                    </Text>
+                    <Text style={styles.shopItemAmount}>{item.amount}</Text>
+                  </View>
+                </Pressable>
+              );
+            })}
+          </View>
+
+          {/* CTA */}
+          <View style={styles.shopCTARow}>
+            <Pressable
+              style={[styles.shopCTA, checkedCount === 0 && styles.shopCTADisabled]}
+              onPress={checkedCount > 0 ? handleAddToShopping : undefined}
+            >
+              <MingCuteIcon name="shopping_cart_1_line" size={16} color={Colors.white} />
+              <Text style={styles.shopCTAText}>
+                Add {checkedCount} item{checkedCount !== 1 ? 's' : ''} to list
+              </Text>
+            </Pressable>
+          </View>
         </View>
       </Modal>
     </View>
@@ -908,6 +1023,114 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.semiBold,
     fontSize: 13,
     color: Colors.textSecondary,
+  },
+  shoppingRowDone: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingTop: 4,
+  },
+  shoppingTextDone: {
+    fontFamily: FontFamily.semiBold,
+    fontSize: 13,
+    color: Colors.primary,
+  },
+  shoppingToast: {
+    backgroundColor: Colors.white,
+    borderWidth: 1.5,
+    borderColor: Colors.primaryBorder,
+    borderRadius: 14,
+    paddingHorizontal: 18,
+    paddingVertical: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    shadowColor: 'rgba(0,153,26,0.15)',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 1,
+    shadowRadius: 16,
+  },
+
+  // Shopping Sheet
+  shopSheetSub: {
+    fontFamily: FontFamily.medium,
+    fontSize: 12,
+    color: Colors.textSecondary,
+    marginTop: 2,
+  },
+  shopList: {
+    paddingHorizontal: 24,
+    paddingTop: 16,
+    gap: 4,
+  },
+  shopRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+    borderRadius: 10,
+    backgroundColor: Colors.background,
+  },
+  shopCheckbox: {
+    width: 22,
+    height: 22,
+    borderRadius: 6,
+    borderWidth: 1.5,
+    borderColor: Colors.textTertiary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  shopCheckboxChecked: {
+    backgroundColor: Colors.primary,
+    borderColor: Colors.primary,
+  },
+  shopItemInfo: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  shopItemName: {
+    fontFamily: FontFamily.semiBold,
+    fontSize: 15,
+    color: Colors.textPrimary,
+  },
+  shopItemUnchecked: {
+    color: Colors.textTertiary,
+    textDecorationLine: 'line-through',
+  },
+  shopItemAmount: {
+    fontFamily: FontFamily.medium,
+    fontSize: 13,
+    color: Colors.textSecondary,
+  },
+  shopCTARow: {
+    paddingHorizontal: 24,
+    paddingTop: 20,
+  },
+  shopCTA: {
+    backgroundColor: Colors.primary,
+    borderRadius: 16,
+    paddingVertical: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    shadowColor: 'rgba(0,153,26,0.25)',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 1,
+    shadowRadius: 16,
+  },
+  shopCTADisabled: {
+    backgroundColor: '#D9D9D9',
+    shadowOpacity: 0,
+  },
+  shopCTAText: {
+    fontFamily: FontFamily.bold,
+    fontSize: 16,
+    color: Colors.white,
+    letterSpacing: -0.32,
   },
 
   // Substitute Bottom Sheet
