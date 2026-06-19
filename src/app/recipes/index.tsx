@@ -134,7 +134,7 @@ export default function RecipeListScreen() {
     <SafeAreaView style={styles.container} edges={['top']}>
       {/* ── Top Bar ── */}
       <View style={styles.topBar}>
-        <Pressable style={styles.iconBtn} onPress={() => router.back()}>
+        <Pressable style={styles.iconBtn} onPress={() => router.replace('/(tabs)')}>
           <MingCuteIcon name="arrow_left_line" size={18} color={Colors.textDark} />
         </Pressable>
 
