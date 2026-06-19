@@ -5,6 +5,7 @@ import {
   Pressable,
   ScrollView,
   Modal,
+  Share,
   StyleSheet,
   AppState,
 } from 'react-native';
@@ -341,7 +342,7 @@ export default function CookModeScreen() {
           </Pressable>
 
           <View style={styles.secondaryRow}>
-            <Pressable style={styles.secondaryBtn}>
+            <Pressable style={styles.secondaryBtn} onPress={() => Share.share({ message: `Just cooked ${recipe.title} with FridgeChef! 🍝✨` })}>
               <MingCuteIcon name="share_forward_line" size={16} color={Colors.textPrimary} />
               <Text style={styles.secondaryBtnText}>Share</Text>
             </Pressable>

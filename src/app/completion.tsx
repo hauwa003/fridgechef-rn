@@ -1,4 +1,4 @@
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Text, Pressable, Share, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from '../constants/Colors';
@@ -73,7 +73,7 @@ export default function CompletionScreen() {
           </Pressable>
 
           <View style={styles.secondaryRow}>
-            <Pressable style={styles.secondaryButton}>
+            <Pressable style={styles.secondaryButton} onPress={() => Share.share({ message: 'Just cooked Tomato Basil Pasta with FridgeChef! 🍝✨' })}>
               <MingCuteIcon name="share_forward_line" size={16} color="#000000" />
               <Text style={styles.secondaryLabel}>Share</Text>
             </Pressable>
